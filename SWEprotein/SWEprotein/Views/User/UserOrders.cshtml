@@ -8,8 +8,9 @@
 {
     <div class="caption">
         
-        <p>@or.dtOrderDate</p>
-        <p>@or.tbStatus.sStatus</p>
-        <p>@or.iSum</p>
+       Datum: <p>@or.dtOrderDate</p>
+       Status: <p>@or.tbStatus.sStatus</p>
+        Summa:  <p>@or.iSum</p>
+        @Html.ActionLink("Detaljer", "OrderDetail", "User", new { id = @or.iID}, null)
     </div>
 }
