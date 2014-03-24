@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="sweproteindb" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=hightech\sqlexpress;Initial Catalog=sweproteindb;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="sweproteindbConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Taste" Member="Tastes">
+    <Type Name="Taste">
+      <Column Name="iID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="sTaste" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="Taste_tbProduct" Member="tbProducts" ThisKey="iID" OtherKey="iTaste" Type="tbProduct" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbOrder" Member="tbOrders">
+    <Type Name="tbOrder">
+      <Column Name="iID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="iStatus" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="iSum" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="dtOrderDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="tbOrder_tbProductOrder" Member="tbProductOrders" ThisKey="iID" OtherKey="iOrderID" Type="tbProductOrder" />
+      <Association Name="tbStatus_tbOrder" Member="tbStatus" ThisKey="iStatus" OtherKey="iID" Type="tbStatus" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbProduct" Member="tbProducts">
+    <Type Name="tbProduct">
+      <Column Name="iID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="iProductType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="sProductBrand" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="sName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="iPrice" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="sPicture" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="sDescription" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="iStockBalance" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="iItemsSold" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="iCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="iTaste" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="sMoreInfo" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="iCampaign" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="tbProduct_tbProductOrder" Member="tbProductOrders" ThisKey="iID" OtherKey="iProductID" Type="tbProductOrder" />
+      <Association Name="Taste_tbProduct" Member="Taste" ThisKey="iTaste" OtherKey="iID" Type="Taste" IsForeignKey="true" />
+      <Association Name="tbProductType_tbProduct" Member="tbProductType" ThisKey="iProductType" OtherKey="iID" Type="tbProductType" IsForeignKey="true" />
+      <Association Name="Campaign_tbProduct" Member="Campaign" ThisKey="iCampaign" OtherKey="iID" Type="Campaign" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbProductCategory" Member="tbProductCategories">
+    <Type Name="tbProductCategory">
+      <Column Name="iID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="sName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="tbProductCategory_tbProductType" Member="tbProductTypes" ThisKey="iID" OtherKey="iProductCategory" Type="tbProductType" />
+      <Association Name="tbProductCategory_tbProductType1" Member="tbProductTypes1" ThisKey="iID" OtherKey="iProductCategory" Type="tbProductType" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbProductOrder" Member="tbProductOrders">
+    <Type Name="tbProductOrder">
+      <Column Name="iID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="iOrderID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="iProductID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="iQuantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="iPrice" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="tbOrder_tbProductOrder" Member="tbOrder" ThisKey="iOrderID" OtherKey="iID" Type="tbOrder" IsForeignKey="true" />
+      <Association Name="tbProduct_tbProductOrder" Member="tbProduct" ThisKey="iProductID" OtherKey="iID" Type="tbProduct" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbProductType" Member="tbProductTypes">
+    <Type Name="tbProductType">
+      <Column Name="iID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="sName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="iProductCategory" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="tbProductType_tbProduct" Member="tbProducts" ThisKey="iID" OtherKey="iProductType" Type="tbProduct" />
+      <Association Name="tbProductCategory_tbProductType" Member="tbProductCategory" ThisKey="iProductCategory" OtherKey="iID" Type="tbProductCategory" IsForeignKey="true" />
+      <Association Name="tbProductCategory_tbProductType1" Member="tbProductCategory1" ThisKey="iProductCategory" OtherKey="iID" Type="tbProductCategory" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbStatus" Member="tbStatus">
+    <Type Name="tbStatus">
+      <Column Name="iID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="sStatus" Type="System.String" DbType="NVarChar(40)" CanBeNull="true" />
+      <Association Name="tbStatus_tbOrder" Member="tbOrders" ThisKey="iID" OtherKey="iStatus" Type="tbOrder" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UserInfo" Member="UserInfos">
+    <Type Name="UserInfo">
+      <Column Name="iID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Adress" Type="System.String" DbType="NVarChar(70)" CanBeNull="true" />
+      <Column Name="PostalNumber" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="sCity" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="sEmail" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="sTelephone" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="iTotalPurchase" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Campaign" Member="Campaigns">
+    <Type Name="Campaign">
+      <Column Name="iID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="sName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="imgURL" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Association Name="Campaign_tbProduct" Member="tbProducts" ThisKey="iID" OtherKey="iCampaign" Type="tbProduct" />
+    </Type>
+  </Table>
+</Database>

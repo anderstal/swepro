@@ -1,0 +1,61 @@
+﻿@using System.Web.UI.WebControls
+@model IEnumerable<SWEprotein.Models.tbProduct>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>LagerSaldo</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+    @Html.ActionLink("Adminsidan", "Index", "Admin")
+ 
+     <table class="table table-condensed table-bordered">
+        <tr>
+       
+            <th>
+                Produktnamn
+            </th>
+         
+            <th>
+               Lagersaldo
+            </th>
+            <th>
+               Antal sålda
+            </th>
+           
+            <th>Fyll på lagersaldo</th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.sName)
+            </td>
+        
+            <td>
+                @Html.DisplayFor(modelItem => item.iStockBalance)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.iItemsSold)
+            </td>
+           
+          
+         <td>   @using (Html.BeginForm("RefillStock", "Admin"))
+                { @Html.TextBox("stockRefill")
+            @Html.Hidden("id", item.iID)
+                    <input type="submit" value="Fyll på"/>
+                }</td>
+        </tr>
+    }
+    
+    </table>   @Html.ActionLink("Adminsidan", "Index", "Admin")
+</body>
+</html>

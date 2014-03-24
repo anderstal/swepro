@@ -1,0 +1,72 @@
+﻿@model SWEprotein.Models.UserInfo
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Användarinfo</title>
+</head>
+<body>
+    <fieldset>
+        <legend>Användarinfo</legend>
+    
+        <div class="display-label">
+        AnvändarID
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.UserID)
+        </div>
+    
+        <div class="display-label">
+         Adress
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.Adress)
+        </div>
+    
+        <div class="display-label">
+           Postnummer
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.PostalNumber)
+        </div>
+    
+        <div class="display-label">
+          Stad
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.sCity)
+        </div>
+    
+        <div class="display-label">
+           Email
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.sEmail)
+        </div>
+    
+        <div class="display-label">
+          Telefonnummer
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.sTelephone)
+        </div>
+    
+        <div class="display-label">
+         Köpt för
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.iTotalPurchase)
+        </div>
+    </fieldset>
+    <p>
+        @Html.ActionLink("Redigera", "EditUserInfo", new { id=Model.iID }) |
+       @Html.ActionLink("Adminsidan", "Index") |    @Html.ActionLink("Till listan", "Users")
+    </p>
+</body>
+</html>

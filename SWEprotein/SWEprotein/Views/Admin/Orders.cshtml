@@ -1,0 +1,60 @@
+﻿@using SWEprotein.Models
+@model IEnumerable<SWEprotein.Models.tbOrder>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Orders</title>
+</head>
+<body>
+  
+    <table class="table table-condensed table-bordered">
+        <tr>
+            <th>
+               AnvändarID
+            </th>
+            <th>
+            Status
+            </th>
+            <th>
+               Summa
+            </th>
+            <th>
+            OrderDatum
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tbStatus.sStatus)
+            </td>
+          
+            <td>
+                @Html.DisplayFor(modelItem => item.iSum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.dtOrderDate)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "EditOrder", new { id=item.iID }) |
+                @Html.ActionLink("Details", "DetailsOrder", new { id=item.iID }) |
+                @Html.ActionLink("Delete", "DeleteOrder", new { id=item.iID }) |
+                   @Html.ActionLink("Skicka", "SendOrder", new { id=item.iID })
+            </td>
+        </tr>
+    }
+    
+    </table> <div>     @Html.ActionLink("Adminsidan", "Index")</div>
+</body>
+</html>

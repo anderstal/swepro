@@ -1,0 +1,44 @@
+﻿@model SWEprotein.Models.RegisterModel
+@{
+    ViewBag.Title = "Registrera nytt konto";
+}
+
+<hgroup class="title">
+ 
+  
+</hgroup>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+
+    <fieldset>
+        <legend>Registrera nytt konto</legend>
+     
+           <div> 
+                @Html.LabelFor(m => m.UserName)
+                @Html.TextBoxFor(m => m.UserName)
+        </div>
+            <div> 
+                @Html.LabelFor(m => m.Password)
+                @Html.PasswordFor(m => m.Password)
+         </div>
+           <div> 
+                @Html.LabelFor(m => m.ConfirmPassword)
+                @Html.PasswordFor(m => m.ConfirmPassword)
+           </div>
+            <div>  @Html.Label("Adress")
+           @Html.TextBox("Adress")</div>
+                   <div>  @Html.Label("Stad")
+           @Html.TextBox("sCity")</div>
+                <div>    @Html.Label("Postnummer")
+          @Html.TextBox("PostalNumber")</div>
+                <div>   @Html.Label("Mobiltelefon")
+          @Html.TextBox("sTelephone")</div>
+                  <div>    @Html.Label("E-mail")
+          @Html.TextBox("sEmail")</div>
+            
+     
+        <input type="submit" value="Registrera" />
+    </fieldset>
+}

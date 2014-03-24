@@ -1,0 +1,35 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AdminSidan</title>
+</head>
+<body>
+    <div>
+
+        <h2>AdminSidan</h2>
+
+
+        @Html.ActionLink("Ny/Editera/Delete: Produkter", "Products", "Admin")
+        <br />
+        @Html.ActionLink("Ny/Editera/Delete: Ordrar", "Orders", "Admin")
+        <br />
+        @Html.ActionLink("Ny/Editera/Delete: Användare", "Users", "Admin")  <br />
+           @Html.ActionLink("Ny/Editera/Delete: Produkttyp", "ProductType", "Admin")<br/>
+        @Html.ActionLink("Ny/Editera/Delete: Kampanjer", "Campaigns", "Admin")
+        <br /> <br />
+        @Html.ActionLink("Lagersaldo", "LagerSaldo", "Admin")
+        <br />
+            @Html.ActionLink("Ekonomi", "Economy", "Admin")
+        <br />
+  
+        
+    
+    </div>
+</body>
+</html>

@@ -1,0 +1,43 @@
+﻿@using SWEprotein.Controllers
+
+
+<h2>Skicka meddelande</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary()
+   
+
+    <fieldset>
+        <legend>Skicka meddelande</legend>
+
+        <div class="editor-label">
+           Ämne
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("ddlSubject")
+        </div>
+
+        <div class="editor-label">
+            Meddelande
+        </div>
+        <div class="editor-field">
+            @Html.TextArea("messageBody", null, new { cols = "50", rows = "10" })
+        </div>
+          <div class="editor-label">
+            E-post
+        </div>
+        <div class="editor-field">
+            @Html.TextBox("mail")
+        </div>
+        <p>
+            <input type="submit" value="Skicka meddelande" />
+            <br />
+        </p>
+
+    </fieldset>
+}
+
+<div>
+   @ViewBag.Message
+</div>

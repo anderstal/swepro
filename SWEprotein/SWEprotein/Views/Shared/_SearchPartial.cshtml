@@ -1,0 +1,35 @@
+﻿<p>
+    Enter country name @Html.TextBox("sName")
+    <input type="submit" id="GetCustomers" value="Submit"/>
+</p>
+
+<span id="rData"></span>
+
+@*Don't repeat if 'jquery-1.8.2.min.js' library already referenced in _Layout.cshtml*@
+@*<script src="~/Scripts/jquery-1.9.1.min.js"></script>*@
+<script src="~/Scripts/jquery-ui-1.8.24.min.js"></script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#sName").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "/Shared/AutoComplete",
+                    type: "POST",
+                    dataType: "json",
+                    data: { term: request.term },
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return { label: item.sName, value: item.sName };
+                        }))
+
+                    }
+                })
+            },
+            messages: {
+                noResults: "", results: ""
+            }
+        });
+    })
+</script>

@@ -1,0 +1,31 @@
+﻿@model SWEprotein.Models.tbProductType
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Produkttyp</title>
+</head>
+<body>
+    <fieldset>
+        <legend>Produkttyp</legend>
+    
+        <div class="display-label">
+           Namn
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.sName)
+        </div>
+    </fieldset>
+    <p>
+        @Html.ActionLink("Edit", "EditProductType", new { id=Model.iID }) |
+        @Html.ActionLink("Adminsidan", "Index") |
+        @Html.ActionLink("Till listan", "ProductType")
+    </p>
+</body>
+</html>

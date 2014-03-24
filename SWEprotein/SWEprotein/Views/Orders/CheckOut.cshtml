@@ -1,0 +1,18 @@
+﻿@using SWEprotein.Models
+@{
+    ViewBag.Title = "CheckOut";
+}
+
+<h2>Betalat och klart!</h2>
+
+<div>
+    @foreach (tbOrder order in Model)
+    {
+        <div class="caption">
+            <p>Pris: @order.iSum</p>
+            <p>Datum: @order.dtOrderDate</p>
+            <p>Status: @order.tbStatus.sStatus</p>
+          Här behövs mer info läggas till via foreign keys...
+        </div>
+    }
+</div>

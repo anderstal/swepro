@@ -1,0 +1,36 @@
+﻿@model SWEprotein.Models.tbProductType
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Ta bort produkttyp</title>
+</head>
+<body>
+   
+    <fieldset>
+        <legend>Ta bort produkttyp</legend>
+    
+        <div class="display-label">
+           Namn
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.sName)
+        </div>
+    </fieldset>
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+        <p>
+            <input type="submit" value="Ta bort" /> |
+         
+        </p>
+    }
+       @Html.ActionLink("Adminsidan", "Index") |    
+            @Html.ActionLink("Till listan", "ProductType")
+</body>
+</html>

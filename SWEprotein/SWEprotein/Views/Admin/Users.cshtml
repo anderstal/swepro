@@ -1,0 +1,78 @@
+﻿@model IEnumerable<SWEprotein.Models.UserInfo>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Users</title>
+</head>
+<body>
+   
+   <table class="table table-condensed table-bordered">
+        <tr>
+            <th>
+             AnvändarID
+            </th>
+            <th>
+            Adress
+            </th>
+            <th>
+             Postnummer
+            </th>
+            <th>
+            Stad
+            </th>
+            <th>
+               Email
+            </th>
+            <th>
+             Telefonnummer
+            </th>
+            <th>
+            Köpt för
+            </th>
+            
+            <th></th>
+        </tr>
+    
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Adress)
+                </td>
+                  
+                <td>
+                    @Html.DisplayFor(modelItem => item.PostalNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.sCity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.sEmail)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.sTelephone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.iTotalPurchase)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "EditUserInfo", new { id=item.iID }) |
+                    @Html.ActionLink("Details", "DetailsUserInfo", new { id=item.iID }) |
+                    @Html.ActionLink("Delete", "DeleteUserInfo", new { id=item.iID })
+                </td>
+            </tr>
+        }
+    
+    </table>
+    <div>     @Html.ActionLink("Adminsidan", "Index")</div>
+</body>
+</html>

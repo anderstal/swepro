@@ -1,0 +1,104 @@
+﻿@model IEnumerable<SWEprotein.Models.tbProduct>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Products</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+    <p>
+        @Html.ActionLink("Lägg till ny produkt", "CreateProduct")
+    </p>
+    <table class="table table-condensed table-bordered">
+        <tr>
+            <th>
+               Produkttyp
+            </th>
+            <th>
+             Märke
+            </th>
+            <th>
+             Namn
+            </th>
+            <th>
+              Pris
+            </th>
+            <th>
+             Bildens URL
+            </th>
+            <th>
+             Kort beskrivning
+            </th>
+            <th>
+            Lagersaldo
+            </th>
+            <th>
+             Antal sålda
+            </th>
+       
+            <th>
+             Smaker
+            </th>
+            <th>
+                Full beskrivning
+            </th>
+               <th>
+            Kampanj
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.tbProductType.sName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.sProductBrand)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.sName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.iPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.sPicture)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.sDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.iStockBalance)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.iItemsSold)
+            </td>
+     
+            <td>
+                @Html.DisplayFor(modelItem => item.iTaste)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.sMoreInfo)
+            </td>
+              <td>
+                @Html.DisplayFor(modelItem => item.Campaign.sName)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "EditProduct", new { id=item.iID }) |
+                @Html.ActionLink("Details", "DetailsProduct", new { id=item.iID }) |
+                @Html.ActionLink("Delete", "DeleteProduct", new { id=item.iID })
+            </td>
+        </tr>
+    }
+    
+    </table> <div>     @Html.ActionLink("Adminsidan", "Index")</div>
+</body>
+</html>

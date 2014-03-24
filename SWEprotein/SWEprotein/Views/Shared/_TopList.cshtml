@@ -1,0 +1,25 @@
+﻿@{
+    Layout = null;
+}
+@using SWEprotein.Models
+<style type="text/css">.text-bold { font-weight:bold;}</style>
+
+<div class="row">
+    <div class="col-md-12" style="padding-left:13px; padding-right:5px; margin-top:10px;">
+        <div class="thumbnail" style="height:180px; width:166px; background-color:black;">
+  
+            <a href="/Product/Topplistan"> <p class="text-center h4 text-warning" style="margin:0;">TOPPLISTAN</p></a>
+            <hr/>
+            <ol style="padding-left:20px;">
+                @foreach (tbProduct prod in Model)
+                {
+        
+            
+                    <li> @Html.ActionLink(@prod.sName, "Produkt", "Product", new { id = prod.iID}, new {@class="text-warning text-bold"})</li>
+                    <hr style="padding:0; margin:0;"/>
+    
+                }
+            </ol>
+        </div>
+    </div>
+</div>

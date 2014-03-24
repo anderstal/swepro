@@ -1,0 +1,56 @@
+﻿@model SWEprotein.Models.tbOrder
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Ta bort order</title>
+</head>
+<body>
+   
+    <fieldset>
+        <legend>Ta bort order</legend>
+    
+        <div class="display-label">
+            AnvändarID
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.UserID)
+        </div>
+    
+        <div class="display-label">
+           Status
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.iStatus)
+        </div>
+    
+        <div class="display-label">
+          Summa
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.iSum)
+        </div>
+    
+        <div class="display-label">
+          OrderDatum
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.dtOrderDate)
+        </div>
+    </fieldset>
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+        <p>
+            <input type="submit" value="Ta bort" /> |
+              @Html.ActionLink("Adminsidan", "Index") |    @Html.ActionLink("Till listan", "Orders")
+        </p>
+    }
+
+</body>
+</html>

@@ -1,0 +1,55 @@
+﻿@model SWEprotein.Models.Campaign
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Kampanj</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+    <script src="~/Scripts/jquery-1.9.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+    
+        <fieldset>
+            <legend>Redigera kampanj</legend>
+    
+            @Html.HiddenFor(model => model.iID)
+    
+            <div class="editor-label">
+             Namn
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.sName)
+                @Html.ValidationMessageFor(model => model.sName)
+            </div>
+    
+            <div class="editor-label">
+              Bildens URL
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.imgURL)
+                @Html.ValidationMessageFor(model => model.imgURL)
+            </div>
+    
+            <p>
+                <input type="submit" value="Save" />
+            </p>
+        </fieldset>
+    }
+    
+    <div>
+        @Html.ActionLink("Adminsidan", "Index") |    @Html.ActionLink("Till listan", "Campaigns")
+    </div>
+</body>
+</html>

@@ -1,0 +1,113 @@
+﻿@model SWEprotein.Models.tbProduct
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+     @*   @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)*@
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Create</title>
+</head>
+<body>
+    <script src="~/Scripts/jquery-1.9.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    
+    @using (Html.BeginForm("CreateProduct", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+
+        <fieldset>
+            <legend>Ny produkt</legend>
+    
+            <div class="editor-label">
+              Produkttyp
+            </div>
+            <div class="editor-field">
+                @Html.DropDownList("iProductType")
+                @Html.ValidationMessageFor(model => model.iProductType)
+            </div>
+    
+            <div class="editor-label">
+               Märke
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.sProductBrand)
+                @Html.ValidationMessageFor(model => model.sProductBrand)
+            </div>
+    
+            <div class="editor-label">
+              Namn
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.sName)
+                @Html.ValidationMessageFor(model => model.sName)
+            </div>
+    
+            <div class="editor-label">
+              Pris
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.iPrice)
+                @Html.ValidationMessageFor(model => model.iPrice)
+            </div>
+    
+          
+    
+            <div class="editor-label">
+             Kort beskrivning
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.sDescription)
+                @Html.ValidationMessageFor(model => model.sDescription)
+            </div>
+    
+            <div class="editor-label">
+              Lagersaldo
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.iStockBalance)
+                @Html.ValidationMessageFor(model => model.iStockBalance)
+            </div>
+    
+            <div class="editor-label">
+             Kampanj
+            </div>
+            <div class="editor-field">
+                @Html.DropDownList("iCampaign")
+                @Html.ValidationMessageFor(model => model.iCampaign)
+            </div>
+         
+    
+            <div class="editor-label">
+               Smaker
+            </div>
+            <div class="editor-field">
+               @Html.DropDownList("iTaste")
+                @Html.ValidationMessageFor(model => model.iTaste)
+            </div>
+    
+            <div class="editor-label">
+               Full beskrivning
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.sMoreInfo)
+                @Html.ValidationMessageFor(model => model.sMoreInfo)
+            </div>
+   <div> <p>Produktbild:</p>
+    <input type="file" name="file" /></div> 
+            <p>
+                <input type="submit" value="Lägg till" />
+            </p>
+        </fieldset>
+    }
+    @ViewBag.ErrorMessage
+    <div>
+        @Html.ActionLink("Adminsidan", "Index") |    @Html.ActionLink("Till listan", "Products")
+    </div>
+</body>
+</html>

@@ -1,0 +1,95 @@
+﻿@model SWEprotein.Models.tbProduct
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Produkt</title>
+</head>
+<body>
+    <fieldset>
+        <legend>Produkt</legend>
+    
+        <div class="display-label">
+        Produkttyp
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.iProductType)
+        </div>
+    
+        <div class="display-label">
+          Märke
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.sProductBrand)
+        </div>
+    
+        <div class="display-label">
+           Namn
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.sName)
+        </div>
+    
+        <div class="display-label">
+          Pris
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.iPrice)
+        </div>
+    
+        <div class="display-label">
+         Bildens URL
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.sPicture)
+        </div>
+    
+        <div class="display-label">
+          Kort beskrivning
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.sDescription)
+        </div>
+    
+        <div class="display-label">
+          Lagersaldo
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.iStockBalance)
+        </div>
+    
+        <div class="display-label">
+         Antal sålda
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.iItemsSold)
+        </div>
+    
+      
+    
+        <div class="display-label">
+           Smaker
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.iTaste)
+        </div>
+    
+        <div class="display-label">
+           Full beskrivning
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.sMoreInfo)
+        </div>
+    </fieldset>
+    <p>
+        @Html.ActionLink("Redigera", "EditProduct", new { id=Model.iID }) |
+        @Html.ActionLink("Adminsidan", "Index") |    @Html.ActionLink("Till listan", "Products")
+    </p>
+</body>
+</html>
