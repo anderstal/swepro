@@ -1,6 +1,6 @@
 ﻿@model SWEprotein.Models.LocalPasswordModel
 @{
-    ViewBag.Title = "Manage Account";
+    ViewBag.Title = "Reigera konto";
 }
 
 <hgroup class="title">
@@ -20,9 +20,3 @@ else
     @Html.Partial("_SetPasswordPartial")
 }
 
-<section id="externalLogins">
-    @Html.Action("RemoveExternalLogins")
-
-    <h3>Add an external login</h3>
-    @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
-</section>
