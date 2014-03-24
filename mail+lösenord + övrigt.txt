@@ -1,0 +1,14 @@
+Orchard:
+
+blogadmin, aU7df!1RZ
+
+gymuser1@gmail.com asdf1234!
+gymuser3@gmail.com asdf1234!
+
+
+För att få fram UserID:
+WebSecurity.CurrentUserId
+
+För att få fram användarnamn: 
+WebSecurity.CurrentUserName
+
