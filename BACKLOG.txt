@@ -1,7 +1,6 @@
 Kund:
 Se sina ordrar
 Reklamera enskild produkt i en order (mail skickas till admin med info)
-Redigera sitt konto
 Ge betyg på produkter (?) (databas)
 Kommentera/Bild (facebook/instagram)
 Checkbox för erbjudanden via mail

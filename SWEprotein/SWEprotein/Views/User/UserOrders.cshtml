@@ -1,0 +1,15 @@
+﻿@using SWEprotein.Models
+@model IEnumerable<SWEprotein.Models.tbOrder>
+@{
+    ViewBag.Title = "UserOrders";
+}
+
+@foreach (tbOrder or in Model)
+{
+    <div class="caption">
+        
+        <p>@or.dtOrderDate</p>
+        <p>@or.tbStatus.sStatus</p>
+        <p>@or.iSum</p>
+    </div>
+}

@@ -42,5 +42,12 @@ namespace SWEprotein.Controllers
             return View();
 
         }
+
+        public ActionResult UserOrders()
+        {
+            var userOrders = _db.tbOrders.Where(c => c.UserID == WebSecurity.CurrentUserId);
+            return View(userOrders);
+
+        }
     }
 }
