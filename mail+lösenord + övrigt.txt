@@ -1,4 +1,4 @@
-Orchard:
+Orchard(blogg):
 
 blogadmin, aU7df!1RZ
 
@@ -12,3 +12,8 @@ WebSecurity.CurrentUserId
 För att få fram användarnamn: 
 WebSecurity.CurrentUserName
 
+För att kolla om en användare har en viss roll:
+User.IsInrole("SuperAdmin") <- Returerar true/false beroende på inloggning
+
+För kräva en viss roll för att visa controller/class:
+[Authorize(Role="SuperAdmin")] 
