@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using SWEprotein.Models;
+using WebMatrix.WebData;
 
 namespace SWEprotein.Controllers
 {
@@ -81,7 +82,7 @@ namespace SWEprotein.Controllers
         {
             var order = new tbOrder
             {
-                UserID = 2, //Byt till Session["login"].ID
+                UserID = WebSecurity.CurrentUserId, //Byt till Session["login"].ID
                 iStatus = 1,
                 iSum = ((List<tbProduct>)Session["cartList"]).Sum(prod => prod.iPrice * prod.iCount),
                 dtOrderDate = DateTime.Now

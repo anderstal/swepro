@@ -1,0 +1,22 @@
+﻿@using SWEprotein.Models
+@model IQueryable<tbProductOrder>
+@{
+    ViewBag.Title = "OrderDetail";
+}
+
+Om du vill reklamera en produkt, tryck på namnet.
+<div class="row">
+@foreach (tbProductOrder po in Model)
+{
+    <div class="col-md-4">
+<p>Produkt: </p> @Html.ActionLink(@po.tbProduct.sName, "Reklamera", "User", new{id = @po.iProductID}, null)
+    <p>Antal: </p>@po.iQuantity
+   <p>Pris: </p> @po.iPrice
+    <p>OrderDatum: </p>@po.tbOrder.dtOrderDate
+    
+  <p>Status: </p>  @po.tbOrder.tbStatus.sStatus
+      <p>Totalt: </p>  @po.tbOrder.iSum<br/>
+   </div>
+}
+    </div>
+    

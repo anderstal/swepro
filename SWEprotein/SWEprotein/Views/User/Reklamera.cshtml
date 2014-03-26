@@ -1,0 +1,31 @@
+﻿
+@model SWEprotein.Models.tbProduct
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary()
+  
+
+    <fieldset>
+        <legend>Reklamera produkt</legend>
+        @Html.HiddenFor(model => model.iID)
+    @Html.LabelFor(model => model.sName, "Produkt: ")
+        @Html.DisplayFor(model => model.sName)
+        <div class="editor-label">
+            Anledning till reklamering:
+        </div>
+        <div class="editor-field">
+            @Html.TextArea("messageBody", null, new { cols = "50", rows = "10" })
+        </div>
+        
+        <p>
+            <input type="submit" value="Skicka reklamation" />
+            <br />
+        </p>
+
+    </fieldset>
+}
+
+<div>
+   @ViewBag.Message
+</div>

@@ -1,5 +1,4 @@
 Kund:
-Se sina ordrar
 Reklamera enskild produkt i en order (mail skickas till admin med info)
 Ge betyg på produkter (?) (databas)
 Kommentera/Bild (facebook/instagram)

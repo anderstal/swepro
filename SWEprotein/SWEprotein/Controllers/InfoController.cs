@@ -69,5 +69,10 @@ namespace SWEprotein.Controllers
             return View();
         }
 
+        public ActionResult Mailskickat()
+        {
+            return View();
+        }
+
     }
 }
