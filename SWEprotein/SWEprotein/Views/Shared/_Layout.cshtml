@@ -1,4 +1,6 @@
 ﻿@using System.Diagnostics.Eventing.Reader
+@using System.Web.UI.WebControls
+@using Microsoft.Ajax.Utilities
 @using SWEprotein.Models
 <!DOCTYPE html>
 <html>
@@ -10,6 +12,7 @@
   
     
     @Styles.Render("~/Content/bootstrapcss") 
+ 
   
     <style type="text/css">
         .margintop {
@@ -65,18 +68,16 @@ border-color: #e7e7e7;
         }
    </p></li>
 } else {
-    
-        <li>@Html.ActionLink("Registrera", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })
-       @Html.ActionLink("Logga in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+     <li> <p>
+      @Html.ActionLink("Registrera", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })
+       @Html.ActionLink("Logga in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</p></li>
   
 }
 
                                     
 
                             
-                                <li>
-                                    
-                                </li>
+                              
                                 <li class="dropdown">
 							
                             </ul>
@@ -84,12 +85,17 @@ border-color: #e7e7e7;
                           
                             <form class="navbar-form navbar-left" role="search">
                                 <div class="form-group">
-                                  @using (Html.BeginForm("ProductSearch", "Shared", FormMethod.Post, new { @class = "form-control", role = "search"}))
-                                  {
-                                      @Html.TextBox("searchString")
-                                      <input type="submit" value="Sök"/>
-                                  }
-                                  
+                                 @using (Ajax.BeginForm("Search", "Product", new AjaxOptions
+                                 {
+                                     HttpMethod = "GET",
+                                     InsertionMode = InsertionMode.Replace,
+                                     UpdateTargetId = "divmainpage"
+                                 }))
+                                 {
+                                     <input type="text" name="q"/>
+                                     <input type="submit" value="Search"/>
+                                     
+                                 }
                                </div>
                             </form>
                         
@@ -136,84 +142,51 @@ border-color: #e7e7e7;
             <div class="row clearfix" id="divmenu">
               
                 <div class="col-md-12 menu"><ul class="nav nav-tabs nav-justified menu">
-                                                                   <li>@Html.ActionLink("Topplistan", "Topplistan", "Product")</li>
-                                                                   <li class="dropdown">
-                                                                       <a href="#" class="dropdown-toggle" data-toggle="dropdown">Kosttillskott</a>
-                                                                       <ul class="dropdown-menu">
-                                                                         @* DYNAMISKA LÄNKAR EFTER TBPRODUCT *@
-                                                                           
-                                                                       </ul>
-                                                                   </li>
-                                                                   <li class="dropdown">
-                                                                       <a href="#" class="dropdown-toggle" data-toggle="dropdown">Kläder</a>
-                                                                       <ul class="dropdown-menu">
-                                                                           <li>@Html.ActionLink("Byxor", "Sortiment", "Product", new {id = 4}, null)</li>
-                                                                           <li>@Html.ActionLink("Tröjor", "Sortiment", "Product", new {id = 14}, null)</li>
-                                                                       </ul>
-                                                                   </li>
+                                                <li>@Html.ActionLink("Topplistan", "Topplistan", "Product")</li>
+                                                <li class="dropdown">
+                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Kosttillskott</a>
+                                                    <ul class="dropdown-menu">
+                                                        @* DYNAMISKA LÄNKAR EFTER TBPRODUCT *@
+                                                               @*    @foreach (tbProduct t in Model)
+                                                                   {
+                                                                       @Html.ActionLink(@t.tbProductType.sName, "Sortiment", "Product", new {id = t.iProductType}, null) <br/>
+                                                                   
+                                                                   }       *@
+                                                    </ul>
+                                                </li>
+                                                <li class="dropdown">
+                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Kläder</a>
+                                                    <ul class="dropdown-menu">
+                                                        <li>@Html.ActionLink("Byxor", "Sortiment", "Product", new {id = 2}, null)</li>
+                                                        <li>@Html.ActionLink("Tröjor", "Sortiment", "Product", new {id = 12}, null)</li>
+                                                    </ul>
+                                                </li>
                                                                  
-                                                            <li>@Html.ActionLink("Kostschema", "KostScheman", "Info")</li>
-                         <li class="dropdown">
-                                                                       <a href="#" class="dropdown-toggle" data-toggle="dropdown">Team SWEprotein</a>
-                                                                       <ul class="dropdown-menu">
-                                                                           <li>@Html.ActionLink("Tjock-jonas", "KostScheman", "Info", new {id = 4}, null)</li>
-                                                                           <li>@Html.ActionLink("Snorungen Hani", "KostScheman", "Info", new {id = 14}, null)</li>
-                                                                           <li>@Html.ActionLink("GangsterLeo", "KostScheman", "Info", new {id = 14}, null)</li>
-                                                                             <li>@Html.ActionLink("KarateÖster", "KostScheman", "Info", new {id = 14}, null)</li>
-                                                                       </ul>
-                                                                   </li>
-                                                                   <li>@Html.ActionLink("Kontakta oss", "KontaktaOss", "Info")</li>
+                                                <li>@Html.ActionLink("Kostschema", "KostScheman", "Info")</li>
+                                                <li class="dropdown">
+                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Team SWEprotein</a>
+                                                    <ul class="dropdown-menu">
+                                                        <li>@Html.ActionLink("Tjock-jonas", "KostScheman", "Info", new {id = 4}, null)</li>
+                                                        <li>@Html.ActionLink("Snorungen Hani", "KostScheman", "Info", new {id = 14}, null)</li>
+                                                        <li>@Html.ActionLink("GangsterLeo", "KostScheman", "Info", new {id = 14}, null)</li>
+                                                        <li>@Html.ActionLink("KarateÖster", "KostScheman", "Info", new {id = 14}, null)</li>
+                                                    </ul>
+                                                </li>
+                                                <li>@Html.ActionLink("Kontakta oss", "KontaktaOss", "Info")</li>
                             
                 
 
-                                                               </ul></div>
+                                            </ul></div>
               
             </div>
-        <div class="row clearfix" id="divsite" style="margin-top:10px;">
-            <div class="col-md-2" id="divleftbar"><div class="caption">
-                                                      <div id="carousel-example-generic" class="carousel" data-ride="carousel">
-                                                          <!-- Indicators -->
-                                                          <ol class="carousel-indicators">
-                                                              <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                                                              <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                                                              <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-                                                          </ol>
-
-                                                          <!-- Wrapper for slides -->
-                                                          <div class="carousel-inner">
-                                                              <div class="item active">
-                                                                  <a href="/Info/Erbjudanden"><img src="/Images/Sitegraf/gymhusetrea.jpg" alt=""></a>
-                                                                  <div class="carousel-caption">
-
-                                                                  </div>
-                                                              </div>
-                                                              <div class="item">
-                                                                  <a href="/Info/Erbjudanden"><img src="/Images/Sitegraf/gymhusetrea2.jpg" alt=""></a>
-                                                                  <div class="carousel-caption">
-  
-                                                                  </div>
-                                                              </div>
-                                                              <div class="item">
-                                                                  <a href="/Info/Erbjudanden">  <img src="/Images/Sitegraf/gymhusetrea3.jpg" alt=""></a>
-                                                                  <div class="carousel-caption">
-   
-                                                                  </div>
-                                                              </div>
+            <div class="row clearfix" id="divsite" style="margin-top:10px;">
+                <div class="col-md-2" id="divleftbar"><div class="caption">
+                                                        
+                                                          <div>
+                                                              @Html.Action("_TopList", "Shared")
                                                           </div>
-
-                                                          <!-- Controls -->
-                                                          <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
-                                                              <span class="glyphicon glyphicon-chevron-left"></span>
-                                                          </a>
-                                                          <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
-                                                              <span class="glyphicon glyphicon-chevron-right"></span>
-                                                          </a>
-                                                      </div>
-                                                      <div>
-                                                          @Html.Action("_TopList", "Shared")
-                                                      </div>
                  
-                                                  </div>
+                                                      </div>
                 </div>
                 <div class="col-md-8 borderbody img-rounded" id="divmainpage"> 
                     @RenderBody()
@@ -222,19 +195,21 @@ border-color: #e7e7e7;
                     @Scripts.Render("~/bundles/jquery")
                     @Scripts.Render("~/bundles/bootstrapjs")
                 </div>
-            <div class="col-md-2" id="divrightbar">
-                @Html.Action("_Campaign", "Shared")
-            </div>
+                <div class="col-md-2" id="divrightbar">
+                    @Html.Action("_Campaign", "Shared")
+                </div>
          
-            <div class="row clearfix">
-                <div class="col-md-12">
+                <div class="row clearfix">
+                    <div class="col-md-12">
+                    </div>
                 </div>
             </div>
-        </div>
             
-            </div>
+        </div>
+      
+         @Content.Script("jquery-1.9.1.min.js", Url)
+    @Content.Script("jquery.unobtrusive-ajax.min.js", Url)
+        @RenderSection("scripts", false)
     </body>
 </html>
-
-
 

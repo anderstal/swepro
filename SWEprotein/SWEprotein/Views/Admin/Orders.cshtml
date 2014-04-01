@@ -10,7 +10,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Orders</title>
+    <title>Orders</title>   <link href="~/Content/bootstrap.css" rel="stylesheet" />
 </head>
 <body>
   
@@ -33,8 +33,8 @@
     
     @foreach (var item in Model) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserID)
+            <td>         
+                @Html.ActionLink(item.UserID.ToString(), "DetailsUserInfo", new {id=item.UserID})
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.tbStatus.sStatus)
@@ -47,10 +47,11 @@
                 @Html.DisplayFor(modelItem => item.dtOrderDate)
             </td>
             <td>
-                @Html.ActionLink("Edit", "EditOrder", new { id=item.iID }) |
-                @Html.ActionLink("Details", "DetailsOrder", new { id=item.iID }) |
-                @Html.ActionLink("Delete", "DeleteOrder", new { id=item.iID }) |
-                   @Html.ActionLink("Skicka", "SendOrder", new { id=item.iID })
+                @Html.ActionLink("Redigera", "EditOrder", new { id=item.iID }) |
+             
+                @Html.ActionLink("Ta bort", "DeleteOrder", new { id=item.iID }) |
+                @Html.ActionLink("Skicka", "SendOrder", new { id=item.iID }) |
+                 @Html.ActionLink("INFO", "InfoOrder", new { id=item.iID }) |
             </td>
         </tr>
     }

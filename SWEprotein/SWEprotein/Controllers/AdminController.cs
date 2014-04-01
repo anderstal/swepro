@@ -8,6 +8,7 @@ using System.Net;
 using System.Security.Cryptography;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 using SWEprotein.Models;
 
 namespace SWEprotein.Controllers
@@ -88,12 +89,7 @@ namespace SWEprotein.Controllers
             return RedirectToAction("Campaigns");
         }
 
-        public ActionResult DetailsCampaign(int id)
-        {
-            var singleCampaign = _db.Campaigns.FirstOrDefault(c => c.iID == id);
-            return View(singleCampaign);
-        }
-
+      
         public ActionResult DeleteCampaign(int id)
         {
             var singleCampaign = _db.Campaigns.FirstOrDefault(c => c.iID == id);
@@ -180,11 +176,7 @@ namespace SWEprotein.Controllers
               return RedirectToAction("Orders");
         }
 
-        public ActionResult DetailsOrder(int id)
-        {
-            var singleOrder = _db.tbOrders.FirstOrDefault(c => c.iID == id);
-            return View(singleOrder);
-        }
+      
 
         public ActionResult DeleteOrder(int id)
         {
@@ -235,6 +227,7 @@ namespace SWEprotein.Controllers
         {
             ViewBag.iProductType = new SelectList(_db.tbProductTypes, "iID", "sName");
             ViewBag.iCampaign = new SelectList(_db.Campaigns, "iID", "sName");
+          
             foreach (tbProduct pr in _db.tbProducts.Where(c => c.iID == product.iID))
             {
                 pr.sName = product.sName;
@@ -252,11 +245,7 @@ namespace SWEprotein.Controllers
             }
             return RedirectToAction("Products");
         }
-        public ActionResult DetailsProduct(int id)
-        {
-            var singleProduct = _db.tbProducts.FirstOrDefault(c => c.iID == id);
-            return View(singleProduct);
-        }
+     
 
       public ActionResult DeleteProduct(int id)
         {
@@ -285,19 +274,23 @@ namespace SWEprotein.Controllers
         {
             ViewBag.iProductType = new SelectList(_db.tbProductTypes, "iID", "sName");
             ViewBag.iCampaign = new SelectList(_db.Campaigns, "iID", "sName");
-            ViewBag.iTaste = new SelectList(_db.Tastes, "iID", "sTaste");
+           // ViewBag.iTaste = new SelectList(_db.Tastes, "iID", "sTaste");
+            ViewBag.iTaste = _db.Tastes.ToList();
             return View();
         }
         [HttpPost]
         public ActionResult CreateProduct(tbProduct product, HttpPostedFileBase file)
         {
+           
             ViewBag.iProductType = new SelectList(_db.tbProductTypes, "iID", "sName");
             ViewBag.iCampaign = new SelectList(_db.Campaigns, "iID", "sName");
-            ViewBag.iTaste = new SelectList(_db.Tastes, "iID", "sTaste");
+         //   ViewBag.iTaste = new SelectList(_db.Tastes, "iID", "sTaste");
+            ViewBag.iTaste = _db.Tastes.ToList();
               string fileString = null;
             try
             {
-                _db.tbProducts.InsertOnSubmit(product);
+            
+                _db.tbProducts.InsertOnSubmit(product);             
                 _db.SubmitChanges();
                 var fileName = Path.GetFileName(file.FileName);
                 if (fileName != null)
@@ -352,11 +345,7 @@ namespace SWEprotein.Controllers
             return RedirectToAction("ProductType");
         }
 
-        public ActionResult DetailsProductType(int id)
-        {
-            var singleProductType = _db.tbProductTypes.FirstOrDefault(c => c.iID == id);
-            return View(singleProductType);
-        }
+      
 
         public ActionResult DeleteProductType(int id)
         {
@@ -404,13 +393,13 @@ namespace SWEprotein.Controllers
 
         public ActionResult EditUserInfo(int id)
         {
-            var singleUserInfo = _db.UserInfos.FirstOrDefault(c => c.iID == id);
+            var singleUserInfo = _db.UserInfos.FirstOrDefault(c => c.UserID == id);
             return View(singleUserInfo);
         }
         [HttpPost]
         public ActionResult EditUserInfo(UserInfo userInfo)
         {
-            foreach (UserInfo or in _db.UserInfos.Where(c => c.iID == userInfo.iID))
+            foreach (UserInfo or in _db.UserInfos.Where(c => c.UserID == userInfo.iID))
             {
                 or.Adress = userInfo.Adress;
                 or.iTotalPurchase = userInfo.iTotalPurchase;
@@ -426,15 +415,11 @@ namespace SWEprotein.Controllers
             return RedirectToAction("Users");
         }
 
-        public ActionResult DetailsUserInfo(int id)
-        {
-            var singleUserInfo = _db.UserInfos.FirstOrDefault(c => c.iID == id);
-            return View(singleUserInfo);
-        }
+     
 
         public ActionResult DeleteUserInfo(int id)
         {
-            var singleUserInfo = _db.UserInfos.FirstOrDefault(c => c.iID == id);
+            var singleUserInfo = _db.UserInfos.FirstOrDefault(c => c.UserID == id);
             if (singleUserInfo == null)
             {
                 return HttpNotFound();
@@ -447,7 +432,7 @@ namespace SWEprotein.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmedU(int id)
         {
-            var singleUserInfo = (from f in _db.UserInfos.Where(c => c.iID == id) select f).FirstOrDefault();
+            var singleUserInfo = (from f in _db.UserInfos.Where(c => c.UserID == id) select f).FirstOrDefault();
             _db.UserInfos.DeleteOnSubmit(singleUserInfo);
 
             _db.SubmitChanges();
@@ -468,7 +453,17 @@ namespace SWEprotein.Controllers
             }
         return    RedirectToAction("LagerSaldo");
         }
-        
+
+        public ActionResult InfoOrder(int id)
+        {
+            var orderProducts = _db.tbProductOrders.Where(c => c.iOrderID == id).OrderBy(c => c.tbOrder.dtOrderDate);
+            var whoOrder = _db.tbOrders.First(c => c.iID == id);
+
+            var orderShipInfo = _db.UserInfos.Where(c => c.UserID == whoOrder.UserID);
+            ViewBag.orderInfo = orderShipInfo;
+            return View(orderProducts);
+
+        }
     }
 }
    

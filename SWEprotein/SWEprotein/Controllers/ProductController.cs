@@ -46,11 +46,14 @@ namespace SWEprotein.Controllers
             var sortedProducts = _db.tbProducts.Where(c => c.iProductType == id);
             return View(sortedProducts);
         }
-        public JsonResult AutoSearch(string term)
-        {
-            var result = _db.tbProducts.Where(c => c.sName.ToLower().Contains(term.ToLower()));
 
-            return Json(result, JsonRequestBehavior.AllowGet);
+        public PartialViewResult Search(string q)
+        {
+            var products = _db.tbProducts
+                .Where(c => c.sName.Contains(q)
+                            || String.IsNullOrEmpty(q))
+                .Take(10);
+            return PartialView("ProductSearch", products);
         }
 
    

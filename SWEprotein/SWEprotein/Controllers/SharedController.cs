@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Web;
 using System.Web.Mvc;
@@ -44,5 +45,7 @@ namespace SWEprotein.Controllers
             var searchResult = _db.tbProducts.Where(c => c.sName.Contains(searchString));
             return View(searchResult);
         }
+
+   
     }
 }

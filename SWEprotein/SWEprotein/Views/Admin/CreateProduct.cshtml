@@ -1,4 +1,6 @@
-﻿@model SWEprotein.Models.tbProduct
+﻿@using System.Web.UI.WebControls
+@using SWEprotein.Models
+@model SWEprotein.Models.tbProduct
 
 @{
     Layout = null;
@@ -11,7 +13,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Create</title>
+    <title>Create</title>   <link href="~/Content/bootstrap.css" rel="stylesheet" />
 </head>
 <body>
     <script src="~/Scripts/jquery-1.9.1.min.js"></script>
@@ -81,7 +83,7 @@
                 @Html.DropDownList("iCampaign")
                 @Html.ValidationMessageFor(model => model.iCampaign)
             </div>
-         
+    @*     
     
             <div class="editor-label">
                Smaker
@@ -90,7 +92,26 @@
                @Html.DropDownList("iTaste")
                 @Html.ValidationMessageFor(model => model.iTaste)
             </div>
+    *@
+            
+            
+            
+            <div class="editor-label">
+               Kryssa i de smaker som finns:
+            </div>
+            <div class="editor-field">
+                   @foreach (Taste smak in ViewBag.iTaste)
+             {
+                <p>@smak.sTaste</p> @Html.CheckBox("checkTaste")
+             }
+              
+
+         
+            </div>
     
+
+            
+
             <div class="editor-label">
                Full beskrivning
             </div>
@@ -98,7 +119,8 @@
                 @Html.EditorFor(model => model.sMoreInfo)
                 @Html.ValidationMessageFor(model => model.sMoreInfo)
             </div>
-   <div> <p>Produktbild:</p>
+            <div> <p>Produktbild:</p>
+             
     <input type="file" name="file" /></div> 
             <p>
                 <input type="submit" value="Lägg till" />

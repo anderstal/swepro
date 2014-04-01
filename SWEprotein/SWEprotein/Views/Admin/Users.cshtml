@@ -9,7 +9,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Users</title>
+    <title>Users</title>   <link href="~/Content/bootstrap.css" rel="stylesheet" />
 </head>
 <body>
    
@@ -65,9 +65,9 @@
                     @Html.DisplayFor(modelItem => item.iTotalPurchase)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "EditUserInfo", new { id=item.iID }) |
-                    @Html.ActionLink("Details", "DetailsUserInfo", new { id=item.iID }) |
-                    @Html.ActionLink("Delete", "DeleteUserInfo", new { id=item.iID })
+                    @Html.ActionLink("Redigera", "EditUserInfo", new { id=item.UserID }) |
+               
+                    @Html.ActionLink("Ta bort", "DeleteUserInfo", new { id=item.UserID })
                 </td>
             </tr>
         }

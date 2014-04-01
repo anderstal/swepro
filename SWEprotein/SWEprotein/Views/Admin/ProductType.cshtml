@@ -36,9 +36,9 @@
                 @Html.DisplayFor(modelItem => item.tbProductCategory.sName)
             </td>
             <td>
-                @Html.ActionLink("Edit", "EditProductType", new { id=item.iID }) |
-                @Html.ActionLink("Details", "DetailsProductType", new { id=item.iID }) |
-                @Html.ActionLink("Delete", "DeleteProductType", new { id=item.iID })
+                @Html.ActionLink("Redigera", "EditProductType", new { id=item.iID }) |
+               
+                @Html.ActionLink("Ta bort", "DeleteProductType", new { id=item.iID })
             </td>
         </tr>
     }

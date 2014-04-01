@@ -36,9 +36,9 @@
                 @Html.DisplayFor(modelItem => item.imgURL)
             </td>
             <td>
-                @Html.ActionLink("Edit", "EditCampaign", new { id=item.iID }) |
-                @Html.ActionLink("Details", "DetailsCampaign", new { id=item.iID }) |
-                @Html.ActionLink("Delete", "DeleteCampaign", new { id=item.iID })
+                @Html.ActionLink("Redigera", "EditCampaign", new { id=item.iID }) |
+                @Html.ActionLink("Info", "DetailsCampaign", new { id=item.iID }) |
+                @Html.ActionLink("Ta bort", "DeleteCampaign", new { id=item.iID })
             </td>
         </tr>
     }

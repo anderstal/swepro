@@ -1,8 +1,7 @@
 Kund:
-Reklamera enskild produkt i en order (mail skickas till admin med info)
 Ge betyg på produkter (?) (databas)
 Kommentera/Bild (facebook/instagram)
-Checkbox för erbjudanden via mail
+Checkbox för erbjudanden via mail (lägg till i databas)
 
 _____________________________________________________________________________________________
 
@@ -10,7 +9,7 @@ Produkter:
 
 Lägga till/redigera produkt: Checkboxes för vilka smaker som finns tillgängliga
 Ta bort produkt: Ta bort bild
-Vid köp: Ändra --lagersaldo och ++iTemSold
+Vid redigera/lägg till produkt: Kunna ta null/ingen kampanj
 
 _____________________________________________________________________________________________
 
@@ -22,10 +21,13 @@ Visa vem som lagt order (UserID/UserName/Annan viktig information)
 _____________________________________________________________________________________________
 Admin:
 
+Kunna ta bort produkter/kampanjer/annat även om det finns foreign keys
+
 Vid redigera users/produkter/ordrar: Visa rätt information, foreign keys
 Ekonomi: Visa hur mycket man sålt för mellan vissa datum: .Where(orderDate > ValtDatum && orderDate < ValtDatum).Sum(c => c.iPrice)
 Ekonomi: Skicka veckorapport och månadsrapport:
 Vecko/Månadsrapport: Antal sålda produkter, vilka produkter etc. Antal ordrar, summa hur mycket man sålt för, produkter som sålt dåligt
+Erbjudanden via mail, skicka automatiskt/knapptryck
 _____________________________________________________________________________________________
 
 Sida/Allmänt:
@@ -39,3 +41,8 @@ Vid inloggning: Ta reda på USERID/SESSION, kolla upp MVC membership...
 
 _____________________________________________________________________________________________
 
+
+Databas:
+
+UserInfo: För&efternamn, nyhetsbrev/erbjudanden, 
+tbProduct: smaker?, betyg

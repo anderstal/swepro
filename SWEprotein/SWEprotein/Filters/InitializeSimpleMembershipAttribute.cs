@@ -37,7 +37,7 @@ namespace SWEprotein.Filters
                             ((IObjectContextAdapter)context).ObjectContext.CreateDatabase();
                         }
                     }
-                    if (!WebMatrix.WebData.WebSecurity.Initialized)
+                    if (!WebSecurity.Initialized)
                     {
                     WebSecurity.InitializeDatabaseConnection("DefaultConnection", "UserProfile", "UserId", "UserName", autoCreateTables: true);
                     }

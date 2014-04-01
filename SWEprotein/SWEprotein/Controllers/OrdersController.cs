@@ -5,7 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using SWEprotein.Models;
 using WebMatrix.WebData;
-
+using System.Net.Mail;
+using System.Net;
 namespace SWEprotein.Controllers
 {
     public class OrdersController : Controller
@@ -82,7 +83,7 @@ namespace SWEprotein.Controllers
         {
             var order = new tbOrder
             {
-                UserID = WebSecurity.CurrentUserId, //Byt till Session["login"].ID
+                UserID = 5, //WebSecurity.CurrentUserId, //Byt till Session["login"].ID
                 iStatus = 1,
                 iSum = ((List<tbProduct>)Session["cartList"]).Sum(prod => prod.iPrice * prod.iCount),
                 dtOrderDate = DateTime.Now
@@ -103,8 +104,19 @@ namespace SWEprotein.Controllers
                 _db.tbProductOrders.InsertOnSubmit(prodOrder);
 
             }
+
+
+            foreach (tbProduct prod in ((List<tbProduct>)Session["cartList"]))
+            {
+                tbProduct prod1 = prod;
+                foreach (tbProduct pr in _db.tbProducts.Where(c => c.iID == prod1.iID))
+                {
+                    pr.iItemsSold += prod1.iCount;
+                    pr.iStockBalance -= prod1.iCount;
+                }
+            }
             _db.SubmitChanges();
-            SendReceipt(order.UserID, "Kvitto SWEprotein", "Summa: " + order.iSum + "\nDatum: " + order.dtOrderDate + "...en massa annan info");
+       //     SendReceipt(order.UserID, "Kvitto SWEprotein", "Summa: " + order.iSum + "\nDatum: " + order.dtOrderDate + "...en massa annan info");
             var receipt = _db.tbOrders.Where(c => c.UserID == order.UserID && c.iID == order.iID);
             return View(receipt); //Gå till för "färdig" betalning
         }
@@ -114,14 +126,15 @@ namespace SWEprotein.Controllers
             var emailUser = _db.UserInfos.FirstOrDefault(c => c.UserID == id);
             try
             {
-                var message = new System.Net.Mail.MailMessage();
+                var message = new MailMessage();
                 message.To.Add(emailUser.sEmail);
+               
                 message.Subject = subject;
-                message.From = new System.Net.Mail.MailAddress("gymuser3@gmail.com");
+                message.From = new MailAddress("gymuser3@gmail.com");
                 message.Body = messageBody;
-                var smtp = new System.Net.Mail.SmtpClient("smtp.gmail.com", 587)
+                var smtp = new SmtpClient("smtp.gmail.com", 587)
                 {
-                    Credentials = new System.Net.NetworkCredential("gymuser3@gmail.com", "asdf1234!"),
+                    Credentials = new NetworkCredential("gymuser3@gmail.com", "asdf1234!"),
                     EnableSsl = true
                 };
 

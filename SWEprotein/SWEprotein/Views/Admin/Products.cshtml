@@ -89,12 +89,12 @@
                 @Html.DisplayFor(modelItem => item.sMoreInfo)
             </td>
               <td>
-                @Html.DisplayFor(modelItem => item.Campaign.sName)
+                @Html.DisplayFor(modelItem => item.iCampaign)
             </td>
             <td>
-                @Html.ActionLink("Edit", "EditProduct", new { id=item.iID }) |
-                @Html.ActionLink("Details", "DetailsProduct", new { id=item.iID }) |
-                @Html.ActionLink("Delete", "DeleteProduct", new { id=item.iID })
+                @Html.ActionLink("Redigera", "EditProduct", new { id=item.iID }) |
+          
+                @Html.ActionLink("Ta bort", "DeleteProduct", new { id=item.iID })
             </td>
         </tr>
     }
