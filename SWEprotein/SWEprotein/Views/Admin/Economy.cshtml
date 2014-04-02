@@ -1,0 +1,101 @@
+﻿@using System.Data.Odbc
+@using System.Web.UI.WebControls
+@using Microsoft.Ajax.Utilities
+@using SWEprotein.Models
+@using GridMvc.Columns
+@using GridMvc.Html
+
+@*@model IEnumerable<SWEprotein.Models.tbOrder>*@
+
+@*@model IEnumerable<SWEprotein.Models.tbProductOrder>*@
+@{
+    ViewBag.Title = "Economy";
+}
+
+
+<div class="container-fluid">
+    <h2>Ekonomi</h2>
+   
+    <br/>
+    <h4>Välj period nedan</h4>
+</div>
+
+@using (Html.BeginForm("Economy", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+    <div style="float: left">
+        <div class="editor-field">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-4">Från datum
+                        <input data-val="true" value="@ViewBag.Date" name="fromDate" type="date"/>
+                    </div>
+                    <div class="col-md-4" style="float:left">Till datum
+                        <input data-val="true" value="@ViewBag.Date" name="ToDate" type="date"/> 
+                    </div>
+                    <div class="col-md-4" style="float:left">
+                    </div>
+                    <br/>      
+                        <input type="submit" value="Hitta" />              
+                </div>
+            </div>
+        </div>    
+     </div>
+
+    <div class="container-fluid" style="float:left">
+        @if (ViewBag.income != null && ViewBag.totalProductsSold != null && ViewBag.totalOrders != null)
+        {
+        <h3>Total inkomst:</h3>@ViewBag.income
+        <h3>Antal sålda produkter</h3>@ViewBag.totalProductsSold      
+        <h3>Antal ordrar</h3>@ViewBag.totalOrders
+        <h3>Medelvärde per order</h3>@ViewBag.average
+        <h3>Mest sålda produkt</h3>@ViewBag.mostSold
+        }
+    </div>
+    
+
+}
+
+@*@if (ViewBag.mostSold != null)
+{
+foreach (var item in ViewBag.mostSold)
+{
+    @it
+}
+}*@
+
+
+
+@*@if (Model != null)
+    {
+        foreach (tbProductOrder a in Model)
+        {
+            <table>
+        @a.tbProduct.sName
+  
+        @a.tbProduct.iItemsSold
+              
+                @a.tbProduct.iPrice
+            </table>
+        }
+
+    }*@
+@*@if (Model != null)
+{
+    @Html.Grid(Model).Columns(columns =>
+            {
+                columns.Add(c => c.tbProduct.sName).Titled("Namn").Filterable(true);
+                columns.Add(c => c.tbProduct.iItemsSold).Titled("Sålda enheter").Filterable(true);
+                IGridColumn<tbProductOrder> gridColumn = columns.Add(c => c.iPrice).Titled("Pris");
+            }).WithPaging(0).Sortable(true)
+}
+@if (Model != null)*@
+@*{
+    @Html.Grid(Model).Columns(columns =>
+            {
+                //columns.Add(ViewBag.price);
+                //columns.Add(c => c.tbProduct.iItemsSold).Titled("Sålda enheter").Filterable(true);
+                //columns.Add(c => c.).Titled("Sålda enheter");
+                IGridColumn<tbProductOrder> gridColumn = columns.Add(c => c.iID).Titled("Försäljningsinkomst");
+            }).WithPaging(0).Sortable(true)
+}*@

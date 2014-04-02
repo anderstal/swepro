@@ -57,11 +57,68 @@ namespace SWEprotein.Controllers
             return View(saldo);
         }
 
+        [HttpGet]
         public ActionResult Economy()
         {
-            throw new NotImplementedException();
+            var test = from f in _db.tbProducts
+                       select f;
+            ViewBag.test = test;
+            ViewBag.ddlProductType = new SelectList(_db.tbProductTypes.OrderBy((c => c.sName)), "iID", "sName");
+            return View();
         }
 
+        [HttpPost]
+        public ActionResult Economy(DateTime? fromDate, DateTime? toDate, string ddlProductType)
+        {
+            //populerar dropdownlista
+            ViewBag.ddlProductType = new SelectList(_db.tbProductTypes.OrderBy((c => c.sName)), "iID", "sName");
+            //sparar valda datum
+            ViewBag.fromDate = fromDate;
+            ViewBag.toDate = toDate;
+
+            if (fromDate == null && toDate == null)
+            {
+                var products = from f in _db.tbProducts
+                               select f;
+                ViewBag.products = products;
+
+                ViewBag.Date = DateTime.Now;
+                ViewBag.StringDate = DateTime.Today.ToString("yyyy/MM/dd");
+                return View();
+            }
+
+            if (fromDate != null && toDate != null)
+            {
+                //Fråga som summerar totalinkomsten per order mellan valda datum
+                var salesIncomeChosenPeriod = _db.tbOrders.Where(c => c.dtOrderDate >= fromDate && c.dtOrderDate <= toDate).Sum(c => c.iSum);
+                ViewBag.income = salesIncomeChosenPeriod;
+
+                //Fråga som tar visar hur många ordrar som är beställt mellan valda datum
+                var totalOrdersChosenPeriod = _db.tbOrders.Where(c => c.dtOrderDate >= fromDate && c.dtOrderDate <= toDate);
+                ViewBag.totalOrders = totalOrdersChosenPeriod.Count();
+
+                //fråga som visar antal sålda produkter mellan valda datum
+                var totalSoldProductsChosenPeriod = _db.tbProductOrders.Where(c => c.tbOrder.dtOrderDate >= fromDate && c.tbOrder.dtOrderDate <= toDate);
+                ViewBag.totalProductsSold = totalSoldProductsChosenPeriod.Count();
+
+                //fråga som tar fram medelinkomst per order.
+                var averageIncomeOrder = _db.tbOrders.Where(c => c.dtOrderDate >= fromDate && c.dtOrderDate <= toDate).Average(c => c.iSum);
+                ViewBag.average = averageIncomeOrder;
+
+                var mostSoldProduct =
+                    _db.tbProductOrders.Where(c => c.tbOrder.dtOrderDate >= fromDate && c.tbOrder.dtOrderDate <= toDate)
+                        .OrderBy(c => c.tbProduct.iItemsSold).FirstOrDefault();
+                ViewBag.mostSold = mostSoldProduct;
+
+
+                //alla produkter som sålts mellan valda datum
+                var allProductsSoldChosenPeriod = _db.tbProductOrders.Where(c => c.tbOrder.dtOrderDate >= fromDate && c.tbOrder.dtOrderDate <= toDate).ToList();
+
+                return View(allProductsSoldChosenPeriod);
+
+            }
+            return View();
+        }
         public ActionResult Campaigns()
         {
             var campaignList = _db.Campaigns.ToList();
