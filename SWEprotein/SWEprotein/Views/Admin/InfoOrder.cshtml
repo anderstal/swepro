@@ -11,7 +11,8 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>InfoOrder</title>   <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <title>InfoOrder</title>   
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
 </head>
 <body>
   <h3>Produkter</h3>
@@ -74,7 +75,6 @@
                   Stad 
               </th>
               <th>TelefonNr</th>
-              <th>AnvändarID</th>
               <th></th>
           </tr>
     
@@ -94,11 +94,7 @@
                </td>
                <td>
                    @Html.DisplayFor(modelItem => item.sTelephone)
-               </td>
-               <td>
-                   @Html.DisplayFor(modelItem => item.UserID)
-               </td>
-             
+               </td>             
            </tr>
         }
      

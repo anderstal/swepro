@@ -95,7 +95,7 @@ namespace SWEprotein.Controllers
                         sCity = info.sCity,
                         sTelephone = info.sTelephone,
                         iTotalPurchase = 0,
-                        UserID = WebSecurity.GetUserId(model.UserName)
+                        iUserID = WebSecurity.GetUserId(model.UserName)
                     };
                     _db.tbUserInfos.InsertOnSubmit(newUserInfo);
                     _db.SubmitChanges();

@@ -81,50 +81,97 @@ namespace SWEprotein.Controllers
 
         public ActionResult CheckOut()
         {
-            var order = new tbOrder
+            if (WebSecurity.IsAuthenticated)
             {
-                UserID = WebSecurity.CurrentUserId,
-                iStatus = 1,
-                iSum = ((List<tbProduct>)Session["cartList"]).Sum(prod => prod.iPrice * prod.iCount),
-                dtOrderDate = DateTime.Now
-
-            };
-            
-            _db.tbOrders.InsertOnSubmit(order);
-            _db.SubmitChanges();
-            foreach (tbProduct prod in ((List<tbProduct>)Session["cartList"]))
-            {
-              var  prodOrder = new tbProductOrder
+                var order = new tbOrder
                 {
-                    iOrderID = order.iID,
-                    iProductID = prod.iID,
-                    iQuantity = (int) prod.iCount,
-                    iPrice = prod.iPrice
+                    iUserID = WebSecurity.CurrentUserId,
+                    iStatus = 1,
+                    iSum = ((List<tbProduct>)Session["cartList"]).Sum(prod => prod.iPrice * prod.iCount),
+                    dtOrderDate = DateTime.Now
                 };
-                _db.tbProductOrders.InsertOnSubmit(prodOrder);
 
-            }
+                _db.tbOrders.InsertOnSubmit(order);
+                _db.SubmitChanges();
 
-
-            foreach (tbProduct prod in ((List<tbProduct>)Session["cartList"]))
-            {
-                tbProduct prod1 = prod;
-                foreach (tbProduct pr in _db.tbProducts.Where(c => c.iID == prod1.iID))
+                foreach (tbProduct p in ((List<tbProduct>)Session["cartList"]).Distinct())
                 {
-                    pr.iItemsSold += prod1.iCount;
-                    pr.iStockBalance -= prod1.iCount;
+                    var prodOrder = new tbProductOrder
+                    {
+                        iOrderID = order.iID,
+                        iProductID = p.iID,
+                        iQuantity = ((List<tbProduct>)Session["cartList"]).Count(c => c.iID == p.iID)
+                    };
+                    _db.tbProductOrders.InsertOnSubmit(prodOrder);
+
                 }
+                _db.SubmitChanges();
+
+                SendReceipt(order.iUserID, "Kvitto SWEprotein", "Summa: " + order.iSum + "\nDatum: " + order.dtOrderDate + "...en massa annan info");
+                var receipt = _db.tbOrders.Where(c => c.iUserID == order.iUserID && c.iID == order.iID);
+
+                Session["cartList"] = null;
+                return View(receipt); //Gå till för "färdig" betalning
             }
+
+            return View("GuestOrder");
+        }
+
+        public ActionResult GuestOrder(string mail, string telenr, string adress, string postnumber, string city)
+        {
+            if (Session["cartList"] != null)
+            {
+                ViewBag.cartCount = ((List<tbProduct>)Session["cartList"]).Sum(c => c.iCount);
+            }
+            var guestOrder = new tbGuestOrder
+            {
+                sAddress = adress,
+                sPostalNumber = postnumber,
+                sCity = city,
+                sEmail = mail,
+                sTelephone = telenr,
+                iStatus = 1,
+                dtOrderDate = DateTime.Today
+            };
+            _db.tbGuestOrders.InsertOnSubmit(guestOrder);
             _db.SubmitChanges();
-           SendReceipt(order.UserID, "Kvitto SWEprotein", "Summa: " + order.iSum + "\nDatum: " + order.dtOrderDate + "...en massa annan info");
-            var receipt = _db.tbOrders.Where(c => c.UserID == order.UserID && c.iID == order.iID);
-          
-            return View(receipt); //Gå till för "färdig" betalning
+
+            foreach (tbProduct p in ((List<tbProduct>)Session["cartList"]).Distinct())
+            {
+                var guestProductOrder = new tbGuestProductOrder
+                {
+                    iGuestOrderID = guestOrder.iID,
+                    iProductID = p.iID,
+                    iQuantity = ((List<tbProduct>)Session["cartList"]).Count(c => c.iID == p.iID)
+                };
+
+
+                tbProduct product = (from prod in _db.tbProducts
+                                     where prod.iID == p.iID
+                                     select prod).First();
+                product.iItemsSold += guestProductOrder.iQuantity;
+
+                tbUserInfo user = (from u in _db.tbUserInfos
+                                 where u.iID == 1
+                                 select u).First();
+                user.iTotalPurchase += guestProductOrder.iQuantity * p.iPrice;
+
+                guestOrder.iSum += guestProductOrder.iQuantity * p.iPrice ?? default(int);
+
+                _db.tbGuestProductOrders.InsertOnSubmit(guestProductOrder);
+                _db.SubmitChanges();
+            }
+
+            SendReceipt(0, "Kvitto SWEprotein", "Summa: " + guestOrder.iSum + "\nDatum: " + guestOrder.dtOrderDate + "...en massa annan info");
+            var receipt = _db.tbGuestOrders.Where(c => c.iID == guestOrder.iID);
+
+            Session["cartList"] = null;
+            return View("CheckOut", receipt); //Gå till för "färdig" betalning
         }
 
         public void SendReceipt(int id, string subject, string messageBody)
         {
-            var emailUser = _db.tbUserInfos.FirstOrDefault(c => c.UserID == id);
+            var emailUser = _db.tbUserInfos.FirstOrDefault(c => c.iUserID == id);
             try
             {
                 var message = new MailMessage();

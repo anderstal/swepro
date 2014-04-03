@@ -35,7 +35,11 @@ namespace SWEprotein.Controllers
 
         public ActionResult Orders()
         {
-            var orderList = _db.tbOrders.OrderBy(c => c.iStatus);
+            OrderModel orderList = new OrderModel();
+
+            orderList.UserOrderList = _db.tbOrders.OrderBy(c => c.iStatus).ToList();
+            orderList.GuestOrderList = _db.tbGuestOrders.OrderBy(c => c.iStatus).ToList();
+
             return View(orderList);
         }
 
@@ -230,7 +234,7 @@ namespace SWEprotein.Controllers
                   or.dtOrderDate = order.dtOrderDate;
                   or.iStatus = order.iStatus;
                   or.iSum = order.iSum;
-                  or.UserID = order.UserID;
+                  or.iUserID = order.iUserID;
                   _db.SubmitChanges();
                   return RedirectToAction("Orders");
               }
@@ -455,13 +459,13 @@ namespace SWEprotein.Controllers
 
         public ActionResult EditUserInfo(int id)
         {
-            var singleUserInfo = _db.tbUserInfos.FirstOrDefault(c => c.UserID == id);
+            var singleUserInfo = _db.tbUserInfos.FirstOrDefault(c => c.iUserID == id);
             return View(singleUserInfo);
         }
         [HttpPost]
         public ActionResult EditUserInfo(tbUserInfo userInfo)
         {
-            foreach (tbUserInfo or in _db.tbUserInfos.Where(c => c.UserID == userInfo.iID))
+            foreach (tbUserInfo or in _db.tbUserInfos.Where(c => c.iUserID == userInfo.iID))
             {
                 or.sAdress = userInfo.sAdress;
                 or.iTotalPurchase = userInfo.iTotalPurchase;
@@ -481,7 +485,7 @@ namespace SWEprotein.Controllers
 
         public ActionResult DeleteUserInfo(int id)
         {
-            var singleUserInfo = _db.tbUserInfos.FirstOrDefault(c => c.UserID == id);
+            var singleUserInfo = _db.tbUserInfos.FirstOrDefault(c => c.iUserID == id);
             if (singleUserInfo == null)
             {
                 return HttpNotFound();
@@ -494,7 +498,7 @@ namespace SWEprotein.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmedU(int id)
         {
-            var singleUserInfo = (from f in _db.tbUserInfos.Where(c => c.UserID == id) select f).FirstOrDefault();
+            var singleUserInfo = (from f in _db.tbUserInfos.Where(c => c.iUserID == id) select f).FirstOrDefault();
             _db.tbUserInfos.DeleteOnSubmit(singleUserInfo);
 
             _db.SubmitChanges();
@@ -588,7 +592,7 @@ namespace SWEprotein.Controllers
             var orderProducts = _db.tbProductOrders.Where(c => c.iOrderID == id).OrderBy(c => c.tbOrder.dtOrderDate).ThenBy(c => c.tbOrder.dtOrderDate);
             var whoOrder = _db.tbOrders.First(c => c.iID == id);
 
-            var orderShipInfo = _db.tbUserInfos.Where(c => c.UserID == whoOrder.UserID);
+            var orderShipInfo = _db.tbUserInfos.Where(c => c.iUserID == whoOrder.iUserID);
             ViewBag.orderInfo = orderShipInfo;
             return View(orderProducts);
 

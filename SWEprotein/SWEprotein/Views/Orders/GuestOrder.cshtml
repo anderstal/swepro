@@ -1,0 +1,49 @@
+﻿@{
+    ViewBag.Title = "CheckOutGuest";
+}
+
+<style type="text/css">
+    .guestInput {
+        margin: 10px 0 0 0;
+    }
+     .checkOutOptions {
+         float: left;
+         margin: 20px 30px 30px 20px;
+     }
+    #border {
+        width: 5px;
+        height: 382px;
+        float: left;
+        background-color: #644d02;
+        background-color: rgba(100, 77, 2, 0.65);
+        margin: 20px 20px;
+    }
+</style>
+
+<div class="checkOutOptions">
+    <h3>Beställ som gäst</h3>
+    @using (Html.BeginForm("GuestOrder", "Orders", FormMethod.Post,
+        new {enctype = "multipart/form-data"}))
+    {
+        <div>
+            <p class="guestInput">Mail:</p>
+            @Html.TextBox("mail")<br/>
+            <p class="guestInput">Mobilnummer:</p>
+            @Html.TextBox("telenr")<br/>
+            <p class="guestInput">Adress:</p>
+            @Html.TextBox("adress")<br/>
+            <p class="guestInput">Postnummer:</p>  
+            @Html.TextBox("postnumber")<br/>
+            <p class="guestInput">Ort:</p>
+            @Html.TextBox("city")<br/>
+            <br/>
+            <input type="submit"value="Lägg order" />
+        </div>
+    }
+</div>
+
+<div id="border"></div>
+<div class="checkOutOptions">
+    <h3>Medlem?</h3>
+    @Html.ActionLink("Logga in här","Login","Account")
+</div>
