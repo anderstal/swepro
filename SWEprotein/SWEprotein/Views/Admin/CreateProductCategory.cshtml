@@ -1,4 +1,4 @@
-﻿@model SWEprotein.Models.tbCampaign
+﻿@model SWEprotein.Models.tbProductCategory
 
 @{
     Layout = null;
@@ -9,8 +9,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Kampanj</title>
-    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <title>Skapa ny typ av kategori</title>   <link href="~/Content/bootstrap.css" rel="stylesheet" />
 </head>
 <body>
     <script src="~/Scripts/jquery-1.9.1.min.js"></script>
@@ -22,34 +21,26 @@
         @Html.ValidationSummary(true)
     
         <fieldset>
-            <legend>Redigera kampanj</legend>
-    
-            @Html.HiddenFor(model => model.iID)
+            <legend>Kategori</legend>
     
             <div class="editor-label">
-             Namn
+              Namn
             </div>
             <div class="editor-field">
                 @Html.EditorFor(model => model.sName)
                 @Html.ValidationMessageFor(model => model.sName)
             </div>
-    
-            <div class="editor-label">
-              Bildens URL
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.sImgURL)
-                @Html.ValidationMessageFor(model => model.sImgURL)
-            </div>
+           
     
             <p>
-                <input type="submit" value="Save" />
+                <input type="submit" value="Lägg till" />
             </p>
         </fieldset>
     }
     
     <div>
-        @Html.ActionLink("Adminsidan", "Index") |    @Html.ActionLink("Till listan", "Campaigns")
+        @Html.ActionLink("Adminsidan", "Index") |    
+        @Html.ActionLink("Till listan", "ProductCategory")
     </div>
 </body>
 </html>

@@ -75,7 +75,7 @@ namespace SWEprotein.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult Register(RegisterModel model, UserInfo info)
+        public ActionResult Register(RegisterModel model, tbUserInfo info)
         {
             if (ModelState.IsValid)
             {
@@ -85,17 +85,19 @@ namespace SWEprotein.Controllers
                     WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
                    
                     WebSecurity.Login(model.UserName, model.Password);
-                    var newUserInfo = new UserInfo
+                    var newUserInfo = new tbUserInfo
                     {
-                        Adress = info.Adress,
+                        sFirstName = info.sFirstName,
+                        sLastName = info.sLastName,
+                        sAdress = info.sAdress,
                         sEmail = info.sEmail,
-                        PostalNumber = info.PostalNumber,
+                        sPostalNumber = info.sPostalNumber,
                         sCity = info.sCity,
                         sTelephone = info.sTelephone,
                         iTotalPurchase = 0,
                         UserID = WebSecurity.GetUserId(model.UserName)
                     };
-                    _db.UserInfos.InsertOnSubmit(newUserInfo);
+                    _db.tbUserInfos.InsertOnSubmit(newUserInfo);
                     _db.SubmitChanges();
                 
                     return RedirectToAction("Index", "Product");

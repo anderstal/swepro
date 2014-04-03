@@ -42,8 +42,10 @@ namespace SWEprotein.Controllers
         }
 
         public ActionResult Sortiment(int id)
-        {
-            var sortedProducts = _db.tbProducts.Where(c => c.iProductType == id);
+        {var sortedProducts = _db.tbProducts.Where(c => c.iProductType == id);
+            ViewBag.topProduct = sortedProducts.OrderByDescending(c => c.iItemsSold).Take(1);
+
+
             return View(sortedProducts);
         }
 

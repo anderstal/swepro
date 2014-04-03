@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SWEprotein.Models.tbCampaign>
+﻿@model IEnumerable<SWEprotein.Models.tbProductCategory>
 
 @{
     Layout = null;
@@ -9,21 +9,19 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Kampanjer</title>
+    <title>Kategorier</title>
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
 </head>
 <body>
     <p>
-        @Html.ActionLink("Skapa ny", "CreateCampaign")
+        @Html.ActionLink("Lägg till ny kategori", "CreateProductCategory")
     </p>
-    <table class="table table-bordered">
+     <table class="table table-condensed table-bordered">
         <tr>
             <th>
-              Kampanjnamn
+              Namn
             </th>
-            <th>
-              URL till bild
-            </th>
+           
             <th></th>
         </tr>
     
@@ -32,13 +30,11 @@
             <td>
                 @Html.DisplayFor(modelItem => item.sName)
             </td>
+         
             <td>
-                @Html.DisplayFor(modelItem => item.sImgURL)
-            </td>
-            <td>
-                @Html.ActionLink("Redigera", "EditCampaign", new { id=item.iID }) |
-              
-                @Html.ActionLink("Ta bort", "DeleteCampaign", new { id=item.iID })
+                @Html.ActionLink("Redigera", "EditProductCategory", new { id=item.iID }) |
+               
+                @Html.ActionLink("Ta bort", "DeleteProductCategory", new { id=item.iID })
             </td>
         </tr>
     }

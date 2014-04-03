@@ -22,7 +22,7 @@ namespace SWEprotein.Controllers
 
         public ActionResult _Campaign()
         {
-            var campaign = _db.Campaigns.Take(5).ToList();
+            var campaign = _db.tbCampaigns.Take(5).ToList();
             return View(campaign);
         }
 

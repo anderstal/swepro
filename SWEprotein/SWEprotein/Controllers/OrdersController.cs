@@ -83,7 +83,7 @@ namespace SWEprotein.Controllers
         {
             var order = new tbOrder
             {
-                UserID = 5, //WebSecurity.CurrentUserId, //Byt till Session["login"].ID
+                UserID = WebSecurity.CurrentUserId,
                 iStatus = 1,
                 iSum = ((List<tbProduct>)Session["cartList"]).Sum(prod => prod.iPrice * prod.iCount),
                 dtOrderDate = DateTime.Now
@@ -116,14 +116,15 @@ namespace SWEprotein.Controllers
                 }
             }
             _db.SubmitChanges();
-       //     SendReceipt(order.UserID, "Kvitto SWEprotein", "Summa: " + order.iSum + "\nDatum: " + order.dtOrderDate + "...en massa annan info");
+           SendReceipt(order.UserID, "Kvitto SWEprotein", "Summa: " + order.iSum + "\nDatum: " + order.dtOrderDate + "...en massa annan info");
             var receipt = _db.tbOrders.Where(c => c.UserID == order.UserID && c.iID == order.iID);
+          
             return View(receipt); //Gå till för "färdig" betalning
         }
 
         public void SendReceipt(int id, string subject, string messageBody)
         {
-            var emailUser = _db.UserInfos.FirstOrDefault(c => c.UserID == id);
+            var emailUser = _db.tbUserInfos.FirstOrDefault(c => c.UserID == id);
             try
             {
                 var message = new MailMessage();

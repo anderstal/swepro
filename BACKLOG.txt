@@ -2,7 +2,9 @@ Kund:
 Ge betyg på produkter (?) (databas)
 Kommentera/Bild (facebook/instagram)
 Checkbox för erbjudanden via mail (lägg till i databas)
-
+Få bekräftelsemail när order skickats (när man trycker på "SKICKA" som admin, skicka mail)
+När en order lagts/betalats: Töm kundkorgen/döda session
+När man loggar ut från sidan: Töm kundkorgen/döda session
 _____________________________________________________________________________________________
 
 Produkter: 
@@ -15,15 +17,14 @@ ________________________________________________________________________________
 
 Ordrar/Kungkorg:
 
-Visa vilka produkter som är i en order (tbProductOrder)
-Visa vem som lagt order (UserID/UserName/Annan viktig information)
+Kundkorg: Lista antal produkter
+
 
 _____________________________________________________________________________________________
 Admin:
 
 Kunna ta bort produkter/kampanjer/annat även om det finns foreign keys
 
-Vid redigera users/produkter/ordrar: Visa rätt information, foreign keys
 Ekonomi: Visa hur mycket man sålt för mellan vissa datum: .Where(orderDate > ValtDatum && orderDate < ValtDatum).Sum(c => c.iPrice)
 Ekonomi: Skicka veckorapport och månadsrapport:
 Vecko/Månadsrapport: Antal sålda produkter, vilka produkter etc. Antal ordrar, summa hur mycket man sålt för, produkter som sålt dåligt
@@ -37,12 +38,11 @@ Bloggfunktion
 Säkerhet: SQL-säkerhet, [Authorize] på ActionResult/Controllers, URL-säkerhet(?)
 Dynamiska länkar till tbProductType
 Lägga till try-catch, kolla igenom null, rensa dubbelkod
-Vid inloggning: Ta reda på USERID/SESSION, kolla upp MVC membership...
-
 _____________________________________________________________________________________________
 
 
 Databas:
 
 UserInfo: För&efternamn, nyhetsbrev/erbjudanden, 
-tbProduct: smaker?, betyg
+tbProduct: smaker?, betyg, Category/Type, inköpspris
+

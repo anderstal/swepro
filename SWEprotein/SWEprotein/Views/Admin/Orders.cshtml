@@ -17,8 +17,12 @@
     <table class="table table-condensed table-bordered">
         <tr>
             <th>
-               AnvändarID
+                AnvändarID
             </th>
+             <th>
+               OrderID
+            </th>
+
             <th>
             Status
             </th>
@@ -34,8 +38,12 @@
     @foreach (var item in Model) {
         <tr>
             <td>         
-                @Html.ActionLink(item.UserID.ToString(), "DetailsUserInfo", new {id=item.UserID})
+                @Html.DisplayFor(modelItem => item.UserID)
             </td>
+ <td>         
+                @Html.DisplayFor(modelItem => item.iID)
+            </td>
+
             <td>
                 @Html.DisplayFor(modelItem => item.tbStatus.sStatus)
             </td>

@@ -4,19 +4,59 @@
     ViewBag.Title = "OrderDetail";
 }
 
-Om du vill reklamera en produkt, tryck på namnet.
+@*Om du vill reklamera en produkt, tryck på namnet.
 <div class="row">
 @foreach (tbProductOrder po in Model)
 {
     <div class="col-md-4">
-<p>Produkt: </p> @Html.ActionLink(@po.tbProduct.sName, "Reklamera", "User", new{id = @po.iProductID}, null)
-    <p>Antal: </p>@po.iQuantity
-   <p>Pris: </p> @po.iPrice
-    <p>OrderDatum: </p>@po.tbOrder.dtOrderDate
+<p>Produkt: @Html.ActionLink(@po.tbProduct.sName, "Reklamera", "User", new{id = @po.iProductID}, null)</p> 
+    <p>Antal:@po.iQuantity </p>
+   <p>Pris:@po.iPrice </p> 
+   
     
-  <p>Status: </p>  @po.tbOrder.tbStatus.sStatus
-      <p>Totalt: </p>  @po.tbOrder.iSum<br/>
    </div>
 }
     </div>
+    *@
+
+  <table class="table table-condensed table-bordered" >
+        <tr>
+            <th>
+            Produkt
+            </th>
+             <th>
+           Märke
+            </th>
+
+            <th>
+            Antal
+            </th>
+            <th>
+               Pris
+            </th>
     
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>         
+                @Html.ActionLink(item.tbProduct.sName, "Reklamera", "User", new{id = item.iProductID}, null)
+            </td>
+             <td>
+                @Html.DisplayFor(modelItem => item.tbProduct.sProductBrand)
+            </td>
+          
+ <td>         
+                @Html.DisplayFor(modelItem => item.iQuantity)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.iPrice)
+            </td>
+          
+         
+        
+        </tr>
+    }
+    
+    </table>

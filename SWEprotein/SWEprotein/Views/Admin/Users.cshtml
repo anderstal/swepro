@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SWEprotein.Models.UserInfo>
+﻿@model IEnumerable<SWEprotein.Models.tbUserInfo>
 
 @{
     Layout = null;
@@ -16,7 +16,10 @@
    <table class="table table-condensed table-bordered">
         <tr>
             <th>
-             AnvändarID
+                AnvändarID
+            </th>
+             <th>
+            Namn
             </th>
             <th>
             Adress
@@ -46,11 +49,14 @@
                     @Html.DisplayFor(modelItem => item.UserID)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Adress)
+                    @Html.DisplayFor(modelItem => item.sFirstName)    @Html.DisplayFor(modelItem => item.sLastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.sAdress)
                 </td>
                   
                 <td>
-                    @Html.DisplayFor(modelItem => item.PostalNumber)
+                    @Html.DisplayFor(modelItem => item.sPostalNumber)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.sCity)

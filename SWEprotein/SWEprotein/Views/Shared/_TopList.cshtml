@@ -6,16 +6,16 @@
 
 <div class="row">
     <div class="col-md-12" style="padding-left:13px; padding-right:5px; margin-top:10px;">
-        <div class="thumbnail" style="height:180px; width:166px; background-color:black;">
+        <div class="thumbnail" style="height:200px; width:166px; background-color:white;">
   
-            <a href="/Product/Topplistan"> <p class="text-center h4 text-warning" style="margin:0;">TOPPLISTAN</p></a>
+            <a href="/Product/Topplistan"> <p class="text-center h4 text-primary" style="margin:0;">TOPPLISTAN</p></a>
             <hr/>
             <ol style="padding-left:20px;">
                 @foreach (tbProduct prod in Model)
                 {
         
             
-                    <li> @Html.ActionLink(@prod.sName, "Produkt", "Product", new { id = prod.iID}, new {@class="text-warning text-bold"})</li>
+                    <li> @Html.ActionLink(@prod.sName, "Produkt", "Product", new { id = prod.iID}, new {@class="text-primary text-bold"})</li>
                     <hr style="padding:0; margin:0;"/>
     
                 }

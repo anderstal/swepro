@@ -1,6 +1,6 @@
 ﻿@using System.Web.UI.WebControls.Expressions
 @using SWEprotein.Models
-@model IEnumerable<SWEprotein.Models.tbProductOrder>
+@model IEnumerable<tbProductOrder>
 
 @{
     Layout = null;
@@ -59,40 +59,47 @@
     </table>
     <h3>Skickas till</h3>
       <table class="table table-condensed table-bordered">
-        <tr>
-            <th>
-                Adress 
-            </th>
-            <th>
-                Postnummer 
-            </th>
-            <th>
-                Stad 
-            </th>
-            <th>TelefonNr</th>
+          <tr>
+              <th>
+                  Namn 
+              </th>
+               
+              <th>
+                  Adress 
+              </th>
+              <th>
+                  Postnummer 
+              </th>
+              <th>
+                  Stad 
+              </th>
+              <th>TelefonNr</th>
               <th>AnvändarID</th>
-            <th></th>
-        </tr>
+              <th></th>
+          </tr>
     
-       @foreach (UserInfo item in @ViewBag.orderInfo) {
-            <tr>
+       @foreach (tbUserInfo item in @ViewBag.orderInfo) {
+           <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Adress)
+                    @Html.DisplayFor(modelItem => item.sFirstName)    @Html.DisplayFor(modelItem => item.sLastName)  
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PostalNumber)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.sCity)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.sTelephone)
-                </td>
-                 <td>
-                    @Html.DisplayFor(modelItem => item.UserID)
-                </td>
+               <td>
+                   @Html.DisplayFor(modelItem => item.sAdress)
+               </td>
+               <td>
+                   @Html.DisplayFor(modelItem => item.sPostalNumber)
+               </td>
+               <td>
+                   @Html.DisplayFor(modelItem => item.sCity)
+               </td>
+               <td>
+                   @Html.DisplayFor(modelItem => item.sTelephone)
+               </td>
+               <td>
+                   @Html.DisplayFor(modelItem => item.UserID)
+               </td>
              
-            </tr>
+           </tr>
         }
      
     </table>

@@ -2,6 +2,25 @@
 @using SWEprotein.Models
 <style type="text/css">.marginbuy {  }</style>
 
+<div class="row>" style="margin-top:25px;">
+    <div class="col-md-6"><p>En massa text om produkterna som listas här. Te.x. om det är protein 
+                              så står det om varför kroppen behöver protein, vilka sorters protein det finns blabla. Till höger om den här
+        textrutan så listas den mest sålda produkten i den här typen av produkt. En massa text om produkterna som listas här. Te.x. om det är protein 
+                              så står det om varför kroppen behöver protein, vilka sorters protein det finns blabla. Till höger om den här
+        textrutan så listas den mest sålda produkten i den här typen av produkt. 
+                          </p></div>
+        @foreach (tbProduct prod in @ViewBag.topProduct)
+        {
+            <div class="col-md-6">
+                    <div class="thumbnail" style="height:280px;">
+               <a href="/Product/Produkt/@prod.iID"> <img src="@prod.sPicture" class="img-responsive" alt="..."></a>
+             
+            </div>
+                
+
+            </div>
+        }
+    </div>
 
 <div class="row" style="margin-bottom:50px;">
 

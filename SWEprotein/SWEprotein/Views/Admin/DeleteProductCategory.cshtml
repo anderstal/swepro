@@ -1,4 +1,4 @@
-﻿@model SWEprotein.Models.tbCampaign
+﻿@model SWEprotein.Models.tbProductCategory
 
 @{
     Layout = null;
@@ -9,12 +9,12 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Ta bort Kampanj</title>   <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <title>Ta bort kategori</title>   <link href="~/Content/bootstrap.css" rel="stylesheet" />
 </head>
 <body>
-
+   
     <fieldset>
-        <legend>Ta bort kampanj</legend>
+        <legend>Ta bort kategori</legend>
     
         <div class="display-label">
            Namn
@@ -22,21 +22,15 @@
         <div class="display-field">
             @Html.DisplayFor(model => model.sName)
         </div>
-    
-        <div class="display-label">
-          Bildens URL
-        </div>
-        <div class="display-field">
-            @Html.DisplayFor(model => model.sImgURL)
-        </div>
     </fieldset>
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
         <p>
             <input type="submit" value="Ta bort" /> 
-        @Html.ActionLink("Adminsidan", "Index") |    @Html.ActionLink("Till listan", "Campaigns")
+         
         </p>
     }
-
+       @Html.ActionLink("Adminsidan", "Index") |    
+            @Html.ActionLink("Till listan", "ProductCategory")
 </body>
 </html>

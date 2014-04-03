@@ -27,13 +27,22 @@
             <legend>Ny produkt</legend>
     
             <div class="editor-label">
-              Produkttyp
+              Typ
             </div>
             <div class="editor-field">
                 @Html.DropDownList("iProductType")
                 @Html.ValidationMessageFor(model => model.iProductType)
             </div>
     
+              <div class="editor-label">
+              Kategori
+            </div>
+            <div class="editor-field">
+                @Html.DropDownList("iProductCategory")
+                @Html.ValidationMessageFor(model => model.iProductCategory)
+            </div>
+            
+
             <div class="editor-label">
                Märke
             </div>
@@ -82,31 +91,16 @@
             <div class="editor-field">
                 @Html.DropDownList("iCampaign")
                 @Html.ValidationMessageFor(model => model.iCampaign)
-            </div>
-    @*     
-    
-            <div class="editor-label">
-               Smaker
-            </div>
-            <div class="editor-field">
-               @Html.DropDownList("iTaste")
-                @Html.ValidationMessageFor(model => model.iTaste)
-            </div>
-    *@
-            
-            
+            </div>       
             
             <div class="editor-label">
-               Kryssa i de smaker som finns:
+             Välj smak:
             </div>
             <div class="editor-field">
-                   @foreach (Taste smak in ViewBag.iTaste)
-             {
-                <p>@smak.sTaste</p> @Html.CheckBox("checkTaste")
-             }
+       
               
-
-         
+                   @Html.DropDownList("iTaste")
+           @Html.ValidationMessageFor(model => model.iTaste)
             </div>
     
 

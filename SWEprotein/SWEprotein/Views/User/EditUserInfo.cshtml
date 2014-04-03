@@ -1,4 +1,4 @@
-﻿@model SWEprotein.Models.UserInfo
+﻿@model SWEprotein.Models.tbUserInfo
 
 <!DOCTYPE html>
 
@@ -21,22 +21,36 @@
     
             @Html.HiddenFor(model => model.iID)
     
-          
+           <div class="editor-label">
+              Förnamn
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.sFirstName)
+                @Html.ValidationMessageFor(model => model.sFirstName)
+            </div>
+            
+             <div class="editor-label">
+              Efternamn
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.sLastName)
+                @Html.ValidationMessageFor(model => model.sLastName)
+            </div>
     
             <div class="editor-label">
               Adress
             </div>
             <div class="editor-field">
-                @Html.EditorFor(model => model.Adress)
-                @Html.ValidationMessageFor(model => model.Adress)
+                @Html.EditorFor(model => model.sAdress)
+                @Html.ValidationMessageFor(model => model.sAdress)
             </div>
     
             <div class="editor-label">
               Postnummer
             </div>
             <div class="editor-field">
-                @Html.EditorFor(model => model.PostalNumber)
-                @Html.ValidationMessageFor(model => model.PostalNumber)
+                @Html.EditorFor(model => model.sPostalNumber)
+                @Html.ValidationMessageFor(model => model.sPostalNumber)
             </div>
     
             <div class="editor-label">

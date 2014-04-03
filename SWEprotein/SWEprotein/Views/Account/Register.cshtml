@@ -23,18 +23,29 @@
                 @Html.LabelFor(m => m.Password)
                 @Html.PasswordFor(m => m.Password)
          </div>
-           <div> 
-                @Html.LabelFor(m => m.ConfirmPassword)
-                @Html.PasswordFor(m => m.ConfirmPassword)
-           </div>
-            <div>  @Html.Label("Adress")
-           @Html.TextBox("Adress")</div>
-                   <div>  @Html.Label("Stad")
-           @Html.TextBox("sCity")</div>
-                <div>    @Html.Label("Postnummer")
-          @Html.TextBox("PostalNumber")</div>
-                <div>   @Html.Label("Mobiltelefon")
-          @Html.TextBox("sTelephone")</div>
+        <div> 
+            @Html.LabelFor(m => m.ConfirmPassword)
+            @Html.PasswordFor(m => m.ConfirmPassword)
+        </div>
+        
+        <div>  @Html.Label("Förnamn")
+            @Html.TextBox("sFirstName")</div>
+        
+          <div>  @Html.Label("Efternamn")
+            @Html.TextBox("sLastName")</div>
+
+        <div>  @Html.Label("Adress")
+            @Html.TextBox("sAdress")</div>
+
+        <div>  @Html.Label("Stad")
+            @Html.TextBox("sCity")</div>
+
+        <div>    @Html.Label("Postnummer")
+            @Html.TextBox("sPostalNumber")</div>
+
+        <div>   @Html.Label("Mobiltelefon")
+            @Html.TextBox("sTelephone")</div>
+
                   <div>    @Html.Label("E-mail")
           @Html.TextBox("sEmail")</div>
             

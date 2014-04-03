@@ -22,17 +22,17 @@ namespace SWEprotein.Controllers
 
         public ActionResult EditUserInfo()
         {
-            var singleUserInfo = _db.UserInfos.FirstOrDefault(c => c.iID == WebSecurity.CurrentUserId);
+            var singleUserInfo = _db.tbUserInfos.FirstOrDefault(c => c.iID == WebSecurity.CurrentUserId);
             return View(singleUserInfo);
         }
 
         [HttpPost]
-        public ActionResult EditUserInfo(UserInfo userInfo)
+        public ActionResult EditUserInfo(tbUserInfo userInfo)
         {
-            foreach (UserInfo or in _db.UserInfos.Where(c => c.iID == userInfo.iID))
+            foreach (tbUserInfo or in _db.tbUserInfos.Where(c => c.iID == userInfo.iID))
             {
-                or.Adress = userInfo.Adress;
-                or.PostalNumber = userInfo.PostalNumber;
+                or.sAdress = userInfo.sAdress;
+                or.sPostalNumber = userInfo.sPostalNumber;
                 or.sEmail = userInfo.sEmail;
                 or.sTelephone = userInfo.sTelephone;
                 or.sCity = userInfo.sCity;
@@ -68,7 +68,7 @@ namespace SWEprotein.Controllers
         [HttpPost]
         public ActionResult Reklamera(string messageBody, tbProduct prod)
         {
-            var getEmail = _db.UserInfos.FirstOrDefault(c => c.iID == WebSecurity.CurrentUserId);
+            var getEmail = _db.tbUserInfos.FirstOrDefault(c => c.iID == WebSecurity.CurrentUserId);
             var getProduct = _db.tbProducts.FirstOrDefault(c => c.iID == prod.iID);
             try
             {
