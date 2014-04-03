@@ -35,10 +35,11 @@ namespace SWEprotein.Controllers
 
         public ActionResult Orders()
         {
-            OrderModel orderList = new OrderModel();
-
-            orderList.UserOrderList = _db.tbOrders.OrderBy(c => c.iStatus).ToList();
-            orderList.GuestOrderList = _db.tbGuestOrders.OrderBy(c => c.iStatus).ToList();
+            var orderList = new OrderModel
+            {
+                UserOrderList = _db.tbOrders.OrderBy(c => c.iStatus).ToList(),
+                GuestOrderList = _db.tbGuestOrders.OrderBy(c => c.iStatus).ToList()
+            };
 
             return View(orderList);
         }
@@ -587,15 +588,27 @@ namespace SWEprotein.Controllers
         return    RedirectToAction("LagerSaldo");
         }
 
-        public ActionResult InfoOrder(int id)
+        public ActionResult InfoOrder(int id, string type)
         {
-            var orderProducts = _db.tbProductOrders.Where(c => c.iOrderID == id).OrderBy(c => c.tbOrder.dtOrderDate).ThenBy(c => c.tbOrder.dtOrderDate);
-            var whoOrder = _db.tbOrders.First(c => c.iID == id);
+            if (type == "user")
+            {
+                var orderProducts = _db.tbProductOrders.Where(c => c.iOrderID == id).OrderBy(c => c.tbOrder.dtOrderDate).ThenBy(c => c.tbOrder.dtOrderDate);
+                var whoOrder = _db.tbOrders.First(c => c.iID == id);
 
-            var orderShipInfo = _db.tbUserInfos.Where(c => c.iUserID == whoOrder.iUserID);
-            ViewBag.orderInfo = orderShipInfo;
-            return View(orderProducts);
+                var orderShipInfo = _db.tbUserInfos.Where(c => c.iUserID == whoOrder.iUserID);
+                ViewBag.userInfo = orderShipInfo;
+                return View("InfoUserOrder", orderProducts);
+            }
 
+            else
+            {
+                var guestOrderProducts = _db.tbGuestProductOrders.Where(c => c.iGuestOrderID == id).OrderBy(c => c.tbGuestOrder.dtOrderDate);
+
+                var guestOrderShipInfo = _db.tbGuestOrders.Where(c => c.iID == id);
+                ViewBag.guestInfo = guestOrderShipInfo;
+
+                return View("InfoGuestOrder", guestOrderProducts);
+            }
         }
     }
 }

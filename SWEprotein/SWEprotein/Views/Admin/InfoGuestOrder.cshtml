@@ -1,6 +1,6 @@
 ﻿@using System.Web.UI.WebControls.Expressions
 @using SWEprotein.Models
-@model IEnumerable<tbProductOrder>
+@model IEnumerable<tbGuestProductOrder>
 
 @{
     Layout = null;
@@ -17,8 +17,7 @@
 <body>
   <h3>Produkter</h3>
     <table class="table table-condensed table-bordered">
-        <tr>
-              
+        <tr>              
             <th>
                 OrderID 
             </th>
@@ -39,7 +38,7 @@
             <tr>
                
                 <td>
-                    @Html.DisplayFor(modelItem => item.iOrderID)
+                    @Html.DisplayFor(modelItem => item.iGuestOrderID)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.tbProduct.sName)
@@ -49,10 +48,9 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.iQuantity)
-                </td>
-            
+                </td>           
                 <td>
-                    @Html.ActionLink("Skicka ORDER", "SendOrder", new { id=item.iOrderID })
+                    @Html.ActionLink("Skicka ORDER", "SendOrder", new { id=item.iGuestOrderID })
                 </td>
             </tr>
         }
@@ -63,8 +61,7 @@
           <tr>
               <th>
                   Namn 
-              </th>
-               
+              </th>               
               <th>
                   Adress 
               </th>
@@ -74,17 +71,17 @@
               <th>
                   Stad 
               </th>
-              <th>TelefonNr</th>
-              <th></th>
+              <th>
+                  Telefonnummer
+              </th>
           </tr>
-    
-       @foreach (tbUserInfo item in @ViewBag.orderInfo) {
+       @foreach (tbGuestOrder item in @ViewBag.guestInfo) {
            <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.sFirstName)    @Html.DisplayFor(modelItem => item.sLastName)  
+                   Gästbeställning  
                 </td>
                <td>
-                   @Html.DisplayFor(modelItem => item.sAdress)
+                   @Html.DisplayFor(modelItem => item.sAddress)
                </td>
                <td>
                    @Html.DisplayFor(modelItem => item.sPostalNumber)
@@ -94,10 +91,9 @@
                </td>
                <td>
                    @Html.DisplayFor(modelItem => item.sTelephone)
-               </td>             
+               </td>
            </tr>
         }
-     
     </table>
     @Html.ActionLink("Tillbaks till Orderlistan", "Orders", "Admin") |
     @Html.ActionLink("Adminsidan", "Index", "Admin")

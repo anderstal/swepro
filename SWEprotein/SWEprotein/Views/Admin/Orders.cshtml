@@ -68,7 +68,7 @@
                         @Html.DisplayFor(modelItem => uO.dtOrderDate)
                     </td>
                     <td>
-                        @Html.ActionLink("INFO", "InfoOrder", new { id=uO.iID }) |
+                        @Html.ActionLink("INFO", "InfoOrder", new { id=uO.iID, type="user" }) |
                         @Html.ActionLink("Edit", "EditOrder", new { id=uO.iID }) |
                         @Html.ActionLink("Delete", "DeleteOrder", new { id=uO.iID }) |
                         @Html.ActionLink("Skicka", "SendOrder", new { id=uO.iID })
@@ -106,7 +106,7 @@
                         @Html.DisplayFor(modelItem => gO.dtOrderDate)
                     </td>
                     <td>
-                        @Html.ActionLink("INFO", "InfoOrder", new { id=gO.iID }) |
+                        @Html.ActionLink("INFO", "InfoOrder", new { id=gO.iID, type="guest" }) |
                         @Html.ActionLink("Edit", "EditOrder", new { id=gO.iID }) |
                         @Html.ActionLink("Delete", "DeleteOrder", new { id=gO.iID }) |
                         @Html.ActionLink("Skicka", "SendOrder", new { id=gO.iID })
