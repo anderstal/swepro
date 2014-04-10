@@ -1,0 +1,25 @@
+﻿@using SWEprotein.Models
+@{
+    Layout = null;
+}
+
+@*  ViewBag.BasketCount = ((List<tbProduct>)Session["cartList"]).Count;
+            ViewBag.BasketList = ((List<tbProduct>) Session["cartList"]).ToList();
+            ViewBag.BasketCost = ((List<tbProduct>) Session["cartList"]).Sum(c => c.iPrice);*@
+
+<div class="row thumbnail" style="margin-left:0.5px; margin-right:0.5px;">
+    <div class="col-md-12"><img src="/Images/Sitegraf/cart.png" style="height:30px;"><span>Kundkorg</span></div>
+    <hr/>  
+    @foreach (tbProduct p in ViewBag.BasketList)
+    {
+     <div class="col-md-12">   <span>@p.iCount @p.sName  @Html.ActionLink("+", "CartAdd", "Orders", new { id=p.iID }, null)
+                    @Html.ActionLink("-", "CartRemove", "Orders", new { id=p.iID }, null)</span></div>
+       
+    }
+    <div class="row">
+       
+        <div class="col-md-12"><span>Totalt: @ViewBag.BasketCost</span></div>
+    </div>
+  <div class="row">
+    <div class="col-md-2">@Html.ActionLink("Gå till kassan", "Kundkorg", "Orders", null, new {@class="btn btn-default btn-xs"})</div></div>
+ </div>

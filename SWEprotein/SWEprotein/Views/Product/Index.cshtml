@@ -1,6 +1,6 @@
 ﻿
 @using SWEprotein.Models
-<style type="text/css">.marginbuy {  }</style>
+
 
 <div class="row">
    
@@ -58,8 +58,8 @@
                 <div class="caption">
                   <a href="/Product/Produkt/@prod.iID">   <p style="font-weight:bold; color:black; margin-top:10px;">@prod.sName</p></a>
                     <p style="font-size:x-small">@prod.sDescription</p>
-                    <hr style="color:darkgrey; margin-top:45px;"/>
-                    <p style="font-weight:bold; color:red;">Pris: @prod.iPrice:- @Html.ActionLink("Köp", "CartAdd", "Orders", new {id = prod.iID}, new {@class="btn-xs btn-warning marginbuy"}) </p>
+                    <hr style="color:darkgrey; margin-top:45px; margin-bottom:5px;"/>
+                   <p style="font-weight:bold; color:red;">Pris: @prod.iPrice:- @Html.ActionLink("Köp", "Produkt", "Product", new {id = prod.sName}, new {@class="btn btn-sm btn-danger"}) </p>
                 </div>
             </div>
         </div>

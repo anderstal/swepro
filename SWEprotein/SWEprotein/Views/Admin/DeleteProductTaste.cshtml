@@ -1,0 +1,36 @@
+﻿@model SWEprotein.Models.tbTaste
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Ta bort smak</title>   <link href="~/Content/bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+   
+    <fieldset>
+        <legend>Ta bort smak</legend>
+    
+        <div class="display-label">
+           Namn
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.sTaste)
+        </div>
+    </fieldset>
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+        <p>
+            <input type="submit" value="Ta bort" /> 
+         
+        </p>
+    }
+       @Html.ActionLink("Adminsidan", "Index") |    
+            @Html.ActionLink("Till listan", "ProductTaste")
+</body>
+</html>

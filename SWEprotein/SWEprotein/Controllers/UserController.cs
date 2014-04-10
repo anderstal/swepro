@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
 using SWEprotein.Models;
 using WebMatrix.WebData;
@@ -46,14 +42,14 @@ namespace SWEprotein.Controllers
 
         public ActionResult UserOrders()
         {
-            var userOrders = _db.tbOrders.Where(c => c.UserID == WebSecurity.CurrentUserId);
+            var userOrders = _db.tbOrders.Where(c => c.iUserID == WebSecurity.CurrentUserId);
             return View(userOrders);
 
         }
 
         public ActionResult OrderDetail(int id)
         {
-            var checkOrder = _db.tbOrders.FirstOrDefault(c => c.iID == id && c.UserID == WebSecurity.CurrentUserId);
+            var checkOrder = _db.tbOrders.FirstOrDefault(c => c.iID == id && c.iUserID == WebSecurity.CurrentUserId);
             var singleOrder = _db.tbProductOrders.Where(c => c.iOrderID == checkOrder.iID);
             return View(singleOrder);
         }
@@ -92,7 +88,7 @@ namespace SWEprotein.Controllers
                 ViewBag.Message = "Något gick fel... ";
                 return View();
             }
-           
+
         }
     }
 }

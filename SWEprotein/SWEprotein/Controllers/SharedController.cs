@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Security.Cryptography;
-using System.Web;
 using System.Web.Mvc;
 using SWEprotein.Models;
 
@@ -14,8 +10,32 @@ namespace SWEprotein.Controllers
         //
         // GET: /Shared/
         readonly DataClasses1DataContext _db = new DataClasses1DataContext();
+
+
+
+
+
+        public ActionResult _Kundkorg()
+        {
+            if (Session["cartList"] != null)
+            {
+                ViewBag.BasketCount = ((List<tbProduct>)Session["cartList"]).Count;
+                ViewBag.BasketList = ((List<tbProduct>)Session["cartList"]).ToList();
+                ViewBag.BasketCost = ((List<tbProduct>)Session["cartList"]).Sum(prod => prod.iPrice * prod.iCount);
+
+                return View();
+            }
+            else
+                ViewBag.BasketCount = "0";
+            ViewBag.BasketList = "";
+            ViewBag.BasketCost = "0";
+            return View();
+
+        }
+
         public ActionResult _TopList()
         {
+
             var topFive = _db.tbProducts.OrderByDescending(c => c.iItemsSold).Take(5).ToList();
             return View(topFive);
         }
@@ -26,26 +46,10 @@ namespace SWEprotein.Controllers
             return View(campaign);
         }
 
-        public JsonResult AutoSearch(string term)
-        {
-            var result = _db.tbProducts.Where(c => c.sName.ToLower().Contains(term.ToLower()));
-          
-            return Json(result, JsonRequestBehavior.AllowGet);
-        }
-        [HttpPost]
-        public JsonResult AutoComplete(string term)
-        {
-            var result = (from r in _db.tbProducts
-                          where r.sName.ToLower().Contains(term.ToLower())
-                          select new { r.sName }).Distinct();
-            return Json(result, JsonRequestBehavior.AllowGet);
-        }
-        public ActionResult ProductSearch(string searchString)
-        {
-            var searchResult = _db.tbProducts.Where(c => c.sName.Contains(searchString));
-            return View(searchResult);
-        }
 
-   
+
+
+
+
     }
 }

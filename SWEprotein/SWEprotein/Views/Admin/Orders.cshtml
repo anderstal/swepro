@@ -1,121 +1,69 @@
 ﻿@using SWEprotein.Models
-@model OrderModel
+@model IEnumerable<SWEprotein.Models.tbOrder>
 
 @{
     Layout = null;
 }
-
-<style type="text/css">
-
-    h2 {
-        margin: 0;
-    }
-    .tableWrapper {
-        margin: 30px;
-    }
-    td {
-        padding: 0 50px 5px 0px;
-    }
-    th {
-        text-align: left;
-    }
-
-</style>
 
 <!DOCTYPE html>
 
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Orders</title>
+    <title>Orders</title>   <link href="~/Content/bootstrap.css" rel="stylesheet" />
 </head>
 <body>
   
+    <table class="table table-condensed table-bordered">
+        <tr>
+            <th>
+                AnvändarID
+            </th>
+             <th>
+               OrderID
+            </th>
 
+            <th>
+            Status
+            </th>
+            <th>
+               Summa
+            </th>
+            <th>
+            OrderDatum
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>         
+                @Html.DisplayFor(modelItem => item.iUserID)
+            </td>
+ <td>         
+                @Html.DisplayFor(modelItem => item.iID)
+            </td>
 
-    <div class="tableWrapper">
-        <h2>Registrerade användare</h2>
-        <table class="table table-condensed table-bordered">
-            <tr>
-                <th>
-                    AnvändarID
-                </th>
-                <th>
-                    Status
-                </th>
-                <th>
-                    Summa
-                </th>
-                <th>
-                    Orderdatum
-                </th>
-                <th></th>
-            </tr>
-    
-            @foreach (tbOrder uO in Model.UserOrderList) {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => uO.iUserID)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => uO.tbStatus.sStatus)
-                    </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tbStatus.sStatus)
+            </td>
           
-                    <td>
-                        @Html.DisplayFor(modelItem => uO.iSum)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => uO.dtOrderDate)
-                    </td>
-                    <td>
-                        @Html.ActionLink("INFO", "InfoOrder", new { id=uO.iID, type="user" }) |
-                        @Html.ActionLink("Edit", "EditOrder", new { id=uO.iID }) |
-                        @Html.ActionLink("Delete", "DeleteOrder", new { id=uO.iID }) |
-                        @Html.ActionLink("Skicka", "SendOrder", new { id=uO.iID })
-                    </td>
-                </tr>
-            }
-        </table>
-    </div>    
-    <div class="tableWrapper">
-        <h2>Gästanvändare</h2>    
-            <table class="table table-condensed table-bordered">
-            <tr>
-                <th>
-                    Status
-                </th>
-                <th>
-                    Summa
-                </th>
-                <th>
-                    Orderdatum
-                </th>
-                <th></th>
-            </tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.iSum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.dtOrderDate)
+            </td>
+            <td>
+                @Html.ActionLink("Redigera", "EditOrder", new { id=item.iID }) |
+             
+                @Html.ActionLink("Ta bort", "DeleteOrder", new { id=item.iID }) |
+                @Html.ActionLink("Skicka", "SendOrder", new { id=item.iID }) |
+                 @Html.ActionLink("INFO", "InfoOrder", new { id=item.iID}) |
+            </td>
+        </tr>
+    }
     
-            @foreach (tbGuestOrder gO in Model.GuestOrderList) {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => gO.tbStatus.sStatus)
-                    </td>
-          
-                    <td>
-                        @Html.DisplayFor(modelItem => gO.iSum)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => gO.dtOrderDate)
-                    </td>
-                    <td>
-                        @Html.ActionLink("INFO", "InfoOrder", new { id=gO.iID, type="guest" }) |
-                        @Html.ActionLink("Edit", "EditOrder", new { id=gO.iID }) |
-                        @Html.ActionLink("Delete", "DeleteOrder", new { id=gO.iID }) |
-                        @Html.ActionLink("Skicka", "SendOrder", new { id=gO.iID })
-                    </td>
-                </tr>
-            }
-    
-        </table>  
-    </div>     
-    <div>@Html.ActionLink("Adminsidan", "Index")</div>
+    </table> <div>     @Html.ActionLink("Adminsidan", "Index")</div>
 </body>
 </html>

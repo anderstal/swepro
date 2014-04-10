@@ -29,15 +29,15 @@
               AnvändarID
             </div>
             <div class="editor-field">
-                @Html.EditorFor(model => model.UserID)
-                @Html.ValidationMessageFor(model => model.UserID)
+                @Html.EditorFor(model => model.iUserID)
+                @Html.ValidationMessageFor(model => model.iUserID)
             </div>
     
             <div class="editor-label">
               Status
             </div>
             <div class="editor-field">
-                @Html.EditorFor(model => model.iStatus)
+              @Html.DropDownList("iStatus")
                 @Html.ValidationMessageFor(model => model.iStatus)
             </div>
     

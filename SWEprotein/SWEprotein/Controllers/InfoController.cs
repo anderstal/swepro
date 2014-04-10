@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
-using SWEprotein.Models;
-using WebMatrix.WebData;
+
 
 namespace SWEprotein.Controllers
 {
@@ -12,7 +8,7 @@ namespace SWEprotein.Controllers
     {
         //
         // GET: /Info/
-       
+
         [HttpGet]
         public ActionResult KontaktaOss()
         {
@@ -38,7 +34,7 @@ namespace SWEprotein.Controllers
                 
                 };
             ViewBag.ddlSubject = subjects;
-           
+
             try
             {
                 var message = new System.Net.Mail.MailMessage();
@@ -54,14 +50,14 @@ namespace SWEprotein.Controllers
 
                 smtp.Send(message);
                 return View("mailskickat");
-              
+
             }
             catch
             {
                 ViewBag.Message = "Något gick fel... Kontrollera din email och försök igen.";
                 return View();
             }
-           
+
         }
 
         public ActionResult Kostscheman()

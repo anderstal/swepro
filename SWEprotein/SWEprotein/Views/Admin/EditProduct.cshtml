@@ -115,7 +115,14 @@
                 @Html.ValidationMessageFor(model => model.iCampaign)
             </div>
     
-
+                <div class="editor-label">
+               Aktiv/Inaktiv
+            </div>
+            <div class="editor-field">
+                @Html.DropDownList("iActive")
+                @Html.ValidationMessageFor(model => model.iActive)
+            </div>
+    
             <p>
                 <input type="submit" value="Spara" />
             </p>

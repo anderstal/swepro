@@ -113,6 +113,11 @@
                 @Html.EditorFor(model => model.sMoreInfo)
                 @Html.ValidationMessageFor(model => model.sMoreInfo)
             </div>
+            <div class="editor-label">Aktiv/Inaktiv</div>
+            <div class="editor-field">
+                @Html.DropDownList("iActive")
+                @Html.ValidationMessageFor(model => model.iActive)
+            </div>
             <div> <p>Produktbild:</p>
              
     <input type="file" name="file" /></div> 

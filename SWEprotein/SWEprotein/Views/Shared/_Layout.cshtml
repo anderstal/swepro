@@ -1,228 +1,161 @@
-﻿@using System.Diagnostics.Eventing.Reader
-@using System.Web.UI.WebControls
-@using Microsoft.Ajax.Utilities
-@using SWEprotein.Models
+﻿@using SWEprotein.Models
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
-  
-  
-    
-    @Styles.Render("~/Content/bootstrapcss") 
- 
-  
-    <style type="text/css">
-        .margintop {
-             margin-top: 30px;
-            margin-bottom: 0;
-         }
+    <title>SWEprotein</title>
 
-        .borderbody {
-            background:white;
-             
+    @Styles.Render("~/Content/bootstrapcss")
+
+    <style type="text/css">
+        .stylebody {
+            background: white;
         }
-         .navbar-collapse, .navbar-default .navbar-form {
-border-color: #e7e7e7;
-             height: 30px;
-}
+
         .menu {
             background-color: white;
-        
-          font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-        }         
+            font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+        }
     </style>
 </head>
-    <body style="background-color:darkgrey">
-        
-        
-          
-        <div class="container" style="background:black; background-color:black;">
-            <div class="row clearfix" id="divnavbartop">
-	
-                <div class="col-md-12">
-	      
-                    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-                        <div class="navbar-header">
-                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button> <a class="navbar-brand" href="/Product/Index"><img src="/Images/Sitegraf/logoSweprot.png" style="height:60px;" /></a>
-                        </div>
-				
-                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                            <ul class="nav navbar-nav">
-                                <li>
-                                    <a href="#"><img src="/images/Sitegraf/facebook-icon.png" style="height:30px"/></a>
-                                </li>
-                                <li>
-                                    <a href="#"><img src="/images/Sitegraf/email-icon.jpg" style="height:30px"/></a>
-                                </li>
-                             
-                                  
-                                @if (Request.IsAuthenticated) {
-  <li> <p>
-        Välkommen, @Html.ActionLink(User.Identity.Name, "Index", "User", routeValues: null, htmlAttributes: new { @class = "username", title = "Manage" })!
-        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" })) {
+<body style="background-color: silver">
+
+    <div class="container" style="background-color: black;">
+
+        <div class="row clearfix" id="divtopbanner">
+            <div class="col-md-1" style="padding: 0;">
+                <a href="/Product/Index">
+                    <img src="/Images/Sitegraf/logoSweprot.png" /></a>
+            </div>
+
+            <div class="col-md-3 col-md-offset-3 text-center">
+
+           
+
+
+                @using (Html.BeginForm("Index", "Product", FormMethod.Post))
+                {
+                    <div style="margin-top: 13px;">
+                    <input type="text" name="searchString" data-autocomplete="@Url.Action("QuickSearch", "Product")" />
+                    <input type="submit" value="Sök"/>
+                    </div>
+                }
+              
+            </div>
+            <div class="col-md-offset-2 col-md-3">  
+                <span style="color: white;">TEXT OM T.EX FRAKT<br />
+                    OCH KREDITVÄNLIGHET ELLER<br />
+                    INFO OM FÖRETAGET</span>
+            </div>
+        </div>
+
+        <div class="row clearfix" id="divmenu">
+
+            <div class="col-md-12 menu">
+                <ul class="nav nav-tabs nav-justified menu">
+                    <li>@Html.ActionLink("Topplistan", "Topplistan", "Product")</li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Kosttillskott</a>
+                        <ul class="dropdown-menu">
+                       
+
+                              <li>
+                                @Html.ActionLink("Bars", "Sortiment", "Product", new { id = 1 }, null)
+                            </li>
+                            <li>@Html.ActionLink("Kolhydrater", "Sortiment", "Product", new { id = 3 }, null)</li>
+
+                            <li>@Html.ActionLink("Drycker", "Sortiment", "Product", new { id = 4 }, null)</li>
+
+                            <li>@Html.ActionLink("Fettförbrännare", "Sortiment", "Product", new { id = 5 }, null)</li>
+                            <li>@Html.ActionLink("Gainers", "Sortiment", "Product", new { id = 6 }, null)</li>
+                            <li>@Html.ActionLink("Kreatin", "Sortiment", "Product", new { id = 7 }, null)</li>
+                            <li>@Html.ActionLink("Muskelökande", "Sortiment", "Product", new { id = 8 }, null)</li>
+                            <li>@Html.ActionLink("Vitaminer", "Sortiment", "Product", new { id = 9 }, null)</li>
+
+                            <li>@Html.ActionLink("Pre Work-Out", "Sortiment", "Product", new { id = 10 }, null)</li>
+                            <li>@Html.ActionLink("Protein", "Sortiment", "Product", new { id = 13 }, null)</li>
+
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Kläder</a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Byxor", "Sortiment", "Product", new { id = 2 }, null)</li>
+                            <li>@Html.ActionLink("Tröjor", "Sortiment", "Product", new { id = 12 }, null)</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tillbehör</a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Shakers", "Sortiment", "Product", new { id = 11 }, null)</li>
+                        </ul>
+                    </li>
+                    <li>@Html.ActionLink("Kostschema", "KostScheman", "Info")</li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Team SWEprotein</a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Blogg...", "KostScheman", "Info", new { id = 4 }, null)</li>
+                            <li>@Html.ActionLink("Blogg...", "KostScheman", "Info", new { id = 14 }, null)</li>
+                            <li>@Html.ActionLink("Blogg...", "KostScheman", "Info", new { id = 14 }, null)</li>
+                            <li>@Html.ActionLink("Blogg...", "KostScheman", "Info", new { id = 14 }, null)</li>
+                        </ul>
+                    </li>
+                    <li>@Html.ActionLink("Kontakta oss", "KontaktaOss", "Info")</li>
+
+                </ul>
+            </div>
+
+        </div>
+        <div class="row clearfix" id="divsite" style="margin-top: 10px;">
+            <div class="col-md-2" id="divleftbar">
+                <div class="caption">
+
+                    <div>
+                        @if (Request.IsAuthenticated)
+                        {
+                            <p>
+                                Välkommen, @Html.ActionLink(User.Identity.Name, "Index", "User", routeValues: null, htmlAttributes: new { @class = "username", title = "Manage" })!
+        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+        {
             @Html.AntiForgeryToken()
             <a href="javascript:document.getElementById('logoutForm').submit()">Logga ut</a>
         }
-   </p></li>
-} else {
-     <li> <p>
-      @Html.ActionLink("Registrera", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })
-       @Html.ActionLink("Logga in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</p></li>
-  
-}
-
-                                    
-
-                            
-                              
-                                <li class="dropdown">
-							
-                            </ul>
-                            
-                          
-                            <form class="navbar-form navbar-left" role="search">
-                                <div class="form-group">
-                                 @using (Ajax.BeginForm("Search", "Product", new AjaxOptions
-                                 {
-                                     HttpMethod = "GET",
-                                     InsertionMode = InsertionMode.Replace,
-                                     UpdateTargetId = "divmainpage"
-                                 }))
-                                 {
-                                     <input type="text" name="q"/>
-                                     <input type="submit" value="Search"/>
-                                     
-                                 }
-                               </div>
-                            </form>
-                        
-                   
-                                
-                            <ul class="nav navbar-nav navbar-right">
-                                <li>
-                                    <a href="/Orders/Kundkorg"><img src="/images/Sitegraf/cart.png" style="height:30px" />Kundkorg<span class="badge">@ViewBag.cartCount</span></a>
-                                </li>
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding-top:15px; margin-right:50px;"><span class="glyphicon glyphicon-info-sign"></span>  Info<strong class="caret"></strong></a>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <a href="/Info/Info">Om företet</a>
-                                        </li>
-                                        <li>
-                                            <a href="/Info/Info">FAQ</a>
-                                        </li>
-                                        <li>
-                                            <a href="/Info/Info">Partners</a>
-                                        </li>
-                                        <li class="divider">
-                                        </li>
-                                        <li>
-                                            <a href="/Info/Info">Support</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-				
-                    </nav>
-                </div>
-              
-            </div>
-	
-            <div class="row clearfix margintop" id="divlogo">
-                <div class="col-md-1" style="padding:0;">
-                    <a href="/Product/Index"> <img src="/Images/Sitegraf/logoSweprot.png" style="height:150px; width:300px;"/></a></div>
-                <div class="col-md-2"></div>
-                <div class="col-md-5"><</div>
-                <div class="col-md-4"></div>
-            </div>
-            <div class="row clearfix" id="divmenu">
-              @Html.ActionLink("Adminsidan", "Index", "Admin")
-                <div class="col-md-12 menu"><ul class="nav nav-tabs nav-justified menu">
-                                                <li>@Html.ActionLink("Topplistan", "Topplistan", "Product")</li>
-                                                <li class="dropdown">
-                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Kosttillskott</a>
-                                                    <ul class="dropdown-menu">
-                                                             <li>@Html.ActionLink("Bars", "Sortiment", "Product", new {id = 1}, null)</li>
-	  <li>@Html.ActionLink("Kolhydrater", "Sortiment", "Product", new {id = 3}, null)</li>
-
-	 <li>@Html.ActionLink("Drycker", "Sortiment", "Product", new {id = 4}, null)</li>
-
-	   <li>@Html.ActionLink("Fettförbrännare", "Sortiment", "Product", new {id = 5}, null)</li>
-	    <li>@Html.ActionLink("Gainers", "Sortiment", "Product", new {id = 6}, null)</li>
-		 <li>@Html.ActionLink("Kreatin", "Sortiment", "Product", new {id = 7}, null)</li>
-		  <li>@Html.ActionLink("Muskelökande", "Sortiment", "Product", new {id = 8}, null)</li>
-		   <li>@Html.ActionLink("Vitaminer", "Sortiment", "Product", new {id = 9}, null)</li>
-
-		    <li>@Html.ActionLink("Pre Work-Out", "Sortiment", "Product", new {id = 10}, null)</li>
-			 <li>@Html.ActionLink("Protein", "Sortiment", "Product", new {id = 13}, null)</li>
-                                                            
-                                                    </ul>
-                                                </li>
-                                                <li class="dropdown">
-                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Kläder</a>
-                                                    <ul class="dropdown-menu">
-                                                        <li>@Html.ActionLink("Byxor", "Sortiment", "Product", new {id = 2}, null)</li>
-                                                        <li>@Html.ActionLink("Tröjor", "Sortiment", "Product", new {id = 12}, null)</li>
-                                                    </ul>
-                                                </li>
-                                                         <li class="dropdown">
-                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tillbehör</a>
-                                                    <ul class="dropdown-menu">
-                                                     	 <li>@Html.ActionLink("Shakers", "Sortiment", "Product", new {id = 11}, null)</li>
-                                                    </ul>
-                                                </li>           
-                                                <li>@Html.ActionLink("Kostschema", "KostScheman", "Info")</li>
-                                                <li class="dropdown">
-                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Team SWEprotein</a>
-                                                    <ul class="dropdown-menu">
-                                                        <li>@Html.ActionLink("Blogg...", "KostScheman", "Info", new {id = 4}, null)</li>
-                                                        <li>@Html.ActionLink("Blogg...", "KostScheman", "Info", new {id = 14}, null)</li>
-                                                        <li>@Html.ActionLink("Blogg...", "KostScheman", "Info", new {id = 14}, null)</li>
-                                                        <li>@Html.ActionLink("Blogg...", "KostScheman", "Info", new {id = 14}, null)</li>
-                                                    </ul>
-                                                </li>
-                                                <li>@Html.ActionLink("Kontakta oss", "KontaktaOss", "Info")</li>
-                            
-                
-
-                                            </ul></div>
-              
-            </div>
-            <div class="row clearfix" id="divsite" style="margin-top:10px;">
-                <div class="col-md-2" id="divleftbar"><div class="caption">
-                                                        
-                                                          <div>
-                                                              @Html.Action("_TopList", "Shared")
-                                                          </div>
-                 
-                                                      </div>
-                </div>
-                <div class="col-md-8 borderbody img-rounded" id="divmainpage"> 
-                    @RenderBody()
-
-              
-                    @Scripts.Render("~/bundles/jquery")
-                    @Scripts.Render("~/bundles/bootstrapjs")
-                </div>
-                <div class="col-md-2" id="divrightbar">
-                    @Html.Action("_Campaign", "Shared")
-                </div>
-         
-                <div class="row clearfix">
-                    <div class="col-md-12">
+                            </p>
+                                                                     
+                        }
+                        else
+                        {
+                            @Html.Action("Login", "Account")
+                        }
+                        @Html.Action("_TopList", "Shared")
                     </div>
+
                 </div>
             </div>
-            
+            <div class="col-md-8 stylebody img-rounded" id="divmainpage">
+                @RenderBody()
+
+
+                @Scripts.Render("~/bundles/jquery")
+                @Scripts.Render("~/bundles/bootstrapjs")
+            </div>
+            <div class="col-md-2" id="divrightbar">
+                @Html.Action("_Kundkorg", "Shared")
+                @Html.Action("_Campaign", "Shared")
+            </div>
+
+
         </div>
-      
-         @Content.Script("jquery-1.9.1.min.js", Url)
+
+    </div>
+
+    @Content.Script("jquery-1.9.1.min.js", Url)
     @Content.Script("jquery.unobtrusive-ajax.min.js", Url)
-        @RenderSection("scripts", false)
-    </body>
+    
+    @Content.Script("jquery-ui.min.js", Url)
+    @Content.Script("autosearch.js", Url)
+    @RenderSection("scripts", false)
+</body>
 </html>
 

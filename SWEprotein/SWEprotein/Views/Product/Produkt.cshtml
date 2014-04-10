@@ -1,24 +1,42 @@
 ﻿
+@using System.Web.UI.WebControls
 @using SWEprotein.Models
 <style type="text/css">.marginbuy {  }</style>
 
 
-<div class="row" style="margin-bottom:50px;">
 
-
-    @foreach (tbProduct prod in Model)
-    {
-        <div class="col-md-3" style="padding-left:5px; padding-right:5px;">
-            <div class="thumbnail" style="height:250px;">
-               <a href="/Product/Produkt/@prod.iID"> <img src="@prod.sPicture" class="img-responsive" alt="..." style="height:80px;"></a>
-                <div class="caption">
-                  <a href="/Product/Produkt/@prod.iID">   <p style="font-weight:bold; color:black; margin-top:10px;">@prod.sName</p></a>
-                    <p style="font-size:x-small">@prod.sDescription</p>
-                    <hr style="color:darkgrey; margin-top:45px;"/>
-                    <p style="font-weight:bold; color:red;">Pris: @prod.iPrice:- @Html.ActionLink("Köp", "CartAdd", "Orders", new {id = prod.iID}, new {@class="btn-xs btn-warning marginbuy"}) </p>
-                </div>
-            </div>
+@foreach (tbProduct p in Model)
+{
+    <div class="row" style="margin-bottom:50px; ">
+        <div class="col-md-5"> <h3>@p.sName</h3>
+            <p>@p.sMoreInfo Här skrivs en massa text om produkten. T.ex. att det är protein som behövs för att bli stark...
+                Att protein är skitviktigt, byggstenar och blabla. <br/><br/> Proteinet är framtaget i NASAS lab där dom forskat
+                i tusen år för att få fram ett potent protein som du blir hulken av utan bieffekter. Sen en tabell med innehålls info
+                och dosering blabla. All nödvändig info helt enkelt. Sen en stor produktbild och annan skit. 
+            </p>
+        </div> <div class="col-md-2"></div>
+        <div class="col-md-5"><img src="@p.sPicture" style="margin-top:10px;" class="img-thumbnail img-responsive"/></div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+         
+    
         </div>
-  
+        <div class="col-md-4"></div>
+        <div class="col-md-2">
+            @using (Html.BeginForm("CartAdd", "orders"))
+    {
+        <span>Smak:</span> @Html.DropDownList("iTaste")<br/>
+        <span>  Antal:</span> @Html.DropDownList("iQuantity")<br/>
+        <input type="hidden" value="@p.sName" name="sName"/>
+                <input type="submit" value="Lägg till" class="btn btn-default btn-lg marginbuy"/>
     }
-</div>
+        
+       
+            
+        </div>
+    </div>
+    
+}
+    
+  

@@ -1,26 +1,96 @@
 ﻿
 @using SWEprotein.Models
-<style type="text/css">.marginbuy {  }</style>
+<style type="text/css">.marginbuy {  }
+
+ .marginbutton { margin-bottom: 20px; }
+</style>
 
 
-<div class="row" style="margin-bottom:50px;">
 
+<h2>Kundkorg</h2>
+<div class="row" style="margin:20px;">
+    
+    <table class="table table-condensed table-bordered">
+       
+        <tr>
+            <th>Produkt</th>
+            <th>
+               
+            </th>
+            <th>Antal</th>
+            <th>Pris</th>
+            <th>Lägg till/Ta bort</th>
+        </tr>
+        @foreach (tbProduct prod in Model){
+            <tr>
+                <td>
+                    <a href="/Product/Produkt/@prod.iID"> <img src="@prod.sPicture" class="img-responsive" alt="..." style="height:65px;"></a>
+                </td>
+                <td>
+                    <a href="/Product/Produkt/@prod.iID">@prod.sName</a>
+                  
 
-    @foreach (tbProduct prod in Model)
-    {
-        <div class="col-md-3" style="padding-left:5px; padding-right:5px;">
-            <div class="thumbnail" style="height:250px;">
-               <a href="/Product/Produkt/@prod.iID"> <img src="@prod.sPicture" class="img-responsive" alt="..." style="height:80px;"></a>
-                <div class="caption">
-                  <a href="/Product/Produkt/@prod.iID">   <p style="font-weight:bold; color:black; margin-top:10px;">@prod.sName</p></a>
-                    <p style="font-size:x-small">@prod.sDescription</p>
-                    <hr style="color:darkgrey; margin-top:45px;"/>
-                    <p style="font-weight:bold; color:red;">Pris: @prod.iPrice:- @Html.ActionLink("Ta bort", "CartRemove", "Orders", new {id = prod.iID}, new {@class="btn-xs btn-warning marginbuy"}) </p>
-                </div>
-            </div>
-        </div>
+                </td>
+          
+                <td>
+                    @Html.DisplayFor(modelItem => prod.iCount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => prod.iPrice)
+                </td>
+                <td>
+                    @Html.ActionLink("+", "CartAdd", new { id=prod.iID })
+                    @Html.ActionLink("-", "CartRemove", new { id=prod.iID })
+                </td>
+            </tr>
+        }
+    </table>
    
-    }
-    <div>@Html.ActionLink("Betala/Lägg order", "CheckOut", "Orders")
+    <div class="row">
+        <h3>Välj betalningssätt</h3>
+         @using (Html.BeginForm("CheckOut2", "Orders", FormMethod.Post))
+         {
+             
+             <input type="submit" value="Betala" />
+         }
+        <span>VISA BETALNINGSALTERNATIV</span>
     </div>
+   
+    <div class="row">
+         <h3>Adressinformation</h3>
+        @if (Request.IsAuthenticated)
+              {
+                 
+                  
+                  foreach (tbUserInfo u in ViewBag.activeUser)
+             {
+
+               <p>  FirstName   @Html.TextBox("sFirstName", u.sFirstName)</p><br/>
+          <p>     LastName  @Html.TextBox("sLastName", u.sLastName) </p><br/>
+           <p>   Adress   @Html.TextBox("sAdress", u.sAdress) </p><br/>
+           <p>    PostalNumber   @Html.TextBox("sPostalNumber", u.sPostalNumber) </p><br/>
+           <p>  City    @Html.TextBox("sCity", u.sCity) </p><br/>
+           <p>    Email  @Html.TextBox("sEmail", u.sEmail) </p><br/>
+            <p>  Telephone   @Html.TextBox("sTelephone", u.sTelephone) </p><br/>
+            
+        }
+              }
+              else
+              {
+                 <p>  FirstName   @Html.TextBox("sFirstName")</p><br/>
+               <p>     LastName    @Html.TextBox("sLastName")</p><br/>
+              <p>   Adress      @Html.TextBox("sAdress")</p><br/>
+             <p>    PostalNumber      @Html.TextBox("sPostalNumber")</p><br/>
+             <p>  City      @Html.TextBox("sCity")</p><br/>
+                <p>    Email    @Html.TextBox("sEmail")</p><br/>
+               <p>  Telephone     @Html.TextBox("sTelephone")</p><br/>
+              }
+        
+
+    </div>
+    <h3>Välj leveransmetod</h3>
+</div>
+<div class="row">
+    <div class="col-md-10"></div>
+    <div class="col-md-2">  @Html.ActionLink("Betala", "CheckOut", "Orders", null, new {@class="btn btn-default btn-lg marginbutton"})</div>
 </div>

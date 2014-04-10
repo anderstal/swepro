@@ -2,19 +2,18 @@
 
 @{
     ViewBag.Title = "Logga in";
-}
+    Layout = null;
+    }
 
-<hgroup class="title">
-  
-</hgroup>
+
 
 <section id="loginForm">
-@using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl })) {
+@using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl })) {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>Logga in</legend>
+       <legend>Logga in</legend>
         <div>
                 @Html.LabelFor(m => m.UserName)
                 @Html.TextBoxFor(m => m.UserName)
@@ -23,11 +22,7 @@
                 @Html.LabelFor(m => m.Password)
                 @Html.PasswordFor(m => m.Password)
                 @Html.ValidationMessageFor(m => m.Password)
-                  </div>  <div>
-                               @Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })
-                              @Html.CheckBoxFor(m => m.RememberMe)
-               
-                          </div>
+                  </div>  
         <input type="submit" value="Logga in" />
     </fieldset>
     <p>

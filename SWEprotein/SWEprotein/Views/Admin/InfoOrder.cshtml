@@ -1,0 +1,110 @@
+﻿@using System.Web.UI.WebControls.Expressions
+@using SWEprotein.Models
+@model IEnumerable<tbProductOrder>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>InfoOrder</title>   <link href="~/Content/bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+  <h3>Produkter</h3>
+    <table class="table table-condensed table-bordered">
+        <tr>
+              <th>Bild</th>
+            <th>
+                ProduktID 
+            </th>
+            <th>
+                Produkt 
+            </th>
+             <th>
+                Antal 
+            </th>
+            <th>
+                OrderID 
+            </th>
+            <th>SKICKA ORDER</th>
+            <th></th>
+        </tr>
+    
+        @foreach (var item in Model) {
+            <tr>
+                    <td> <img src="@item.tbProduct.sPicture" class="img-responsive" alt="..." style="height:60px;"></td>
+                <td>
+               @Html.DisplayFor(modelItem => item.iProductID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.tbProduct.sName)
+                </td>
+                 <td>
+                     @Html.DisplayFor(modelItem => item.iQuantity)
+                </td>
+                <td>
+                @Html.DisplayFor(modelItem => item.iOrderID)
+                </td>
+            
+                <td>
+                    @Html.ActionLink("Skicka ORDER", "SendOrder", new { id=item.iOrderID })
+                </td>
+            </tr>
+        }
+     
+    </table>
+    <h3>Skickas till</h3>
+      <table class="table table-condensed table-bordered">
+          <tr>
+              <th>
+                  Namn 
+              </th>
+               
+              <th>
+                  Adress 
+              </th>
+              <th>
+                  Postnummer 
+              </th>
+              <th>
+                  Stad 
+              </th>
+              <th>TelefonNr</th>
+              <th>AnvändarID</th>
+              <th></th>
+          </tr>
+    
+       @foreach (tbUserInfo item in @ViewBag.orderInfo) {
+           <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.sFirstName)    @Html.DisplayFor(modelItem => item.sLastName)  
+                </td>
+               <td>
+                   @Html.DisplayFor(modelItem => item.sAdress)
+               </td>
+               <td>
+                   @Html.DisplayFor(modelItem => item.sPostalNumber)
+               </td>
+               <td>
+                   @Html.DisplayFor(modelItem => item.sCity)
+               </td>
+               <td>
+                   @Html.DisplayFor(modelItem => item.sTelephone)
+               </td>
+               <td>
+                   @Html.DisplayFor(modelItem => item.iUserID)
+               </td>
+             
+           </tr>
+        }
+     
+    </table>
+    @Html.ActionLink("Tillbaks till Orderlistan", "Orders", "Admin") |
+    @Html.ActionLink("Adminsidan", "Index", "Admin")
+   
+</body>
+</html>
