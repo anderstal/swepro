@@ -25,7 +25,11 @@
     @using (Html.BeginForm("GuestOrder", "Orders", FormMethod.Post,
         new {enctype = "multipart/form-data"}))
     {
-        <div>
+        <div>            
+            <p class="guestInput">Förnamn:</p>
+            @Html.TextBox("fnamn")<br/>
+            <p class="guestInput">Efternamn:</p>
+            @Html.TextBox("enamn")<br/>
             <p class="guestInput">Mail:</p>
             @Html.TextBox("mail")<br/>
             <p class="guestInput">Mobilnummer:</p>

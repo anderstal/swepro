@@ -8,10 +8,6 @@ using DotNetOpenAuth.OpenId.Extensions.AttributeExchange;
 //using PaysonIntegration.Data;
 //using PaysonIntegration.Response;
 //using PaysonIntegration.Utils;
-using PaysonIntegration;
-using PaysonIntegration.Data;
-using PaysonIntegration.Response;
-using PaysonIntegration.Utils;
 using SWEprotein.Models;
 using WebMatrix.WebData;
 using System.Net.Mail;
@@ -60,19 +56,15 @@ namespace SWEprotein.Controllers
                 }
                 else
                 {
-
                     prod.iCount--;
                     return RedirectToAction("Index", "Product");
                 }
             }
-
-
-
             return RedirectToAction("Index", "Product");
         }
+
         public ActionResult CartAdd(string sName, int iTaste, int iQuantity)
         {
-
             var findProduct = _db.tbProducts.First(c => c.sName == sName && c.iTaste == iTaste);
 
             if (Session["cartList"] == null)
@@ -124,14 +116,14 @@ namespace SWEprotein.Controllers
             //return RedirectToAction("Index", "Product");
 
             #endregion
-
-
-
         }
 
         public ActionResult CheckOut()
         {
-
+            if (WebSecurity.IsAuthenticated)
+            {
+                return View("GuestOrder");
+            }
 
             var order = new tbOrder
             {
@@ -174,6 +166,46 @@ namespace SWEprotein.Controllers
             return View(receipt); //Gå till för "färdig" betalning
         }
 
+        public ActionResult GuestOrder(string fnamn, string enamn, string mail, string telenr, string adress, string postnumber, string city)
+        {
+            if (Session["cartList"] != null)
+            {
+                ViewBag.cartCount = ((List<tbProduct>)Session["cartList"]).Sum(c => c.iCount);
+            }
+
+            var guestUser = new tbUserInfo
+            {
+                iUserID = 2,
+                sFirstName = fnamn,
+                sLastName = enamn,
+                sAdress = adress,
+                sPostalNumber = postnumber,
+                sCity = city,
+                sEmail = mail,
+                sTelephone = telenr,
+                iTotalPurchase = 0,
+                iNewsOffers = 0
+            };
+            _db.tbUserInfos.InsertOnSubmit(guestUser);
+            _db.SubmitChanges();
+
+            var order = new tbOrder
+            {
+                iUserID = 2,
+                iStatus = 1,
+                iSum = ((List<tbProduct>)Session["cartList"]).Sum(prod => prod.iPrice * prod.iCount),
+                dtOrderDate = DateTime.Now
+            };
+
+            _db.tbOrders.InsertOnSubmit(order);
+            _db.SubmitChanges();
+	    
+	        SendReceipt(order.iUserID, "Kvitto SWEprotein", "Summa: " + order.iSum + "\nDatum: " + order.dtOrderDate + "...en massa annan info");
+            var receipt = _db.tbOrders.Where(c => c.iUserID == order.iUserID && c.iID == order.iID);
+		
+	    return View("CheckOut", receipt);
+	    }
+        
         public void SendReceipt(int id, string subject, string messageBody)
         {
             var emailUser = _db.tbUserInfos.FirstOrDefault(c => c.iUserID == id);
@@ -200,38 +232,38 @@ namespace SWEprotein.Controllers
 
         }
 
-        public ActionResult CheckOut2(tbUserInfo u)
-        {
+        //public ActionResult CheckOut2(tbUserInfo u)
+        //{
 
-            const decimal sum = 5;
+        //    const decimal sum = 5;
 
-            //var paysonApi = new PaysonApi("20516", "d615e80b-4ad4-4c46-a88e-7cffc66ab4b2");
-            var paysonApi = new PaysonApi("4", "2acab30d-fe50-426f-90d7-8c60a7eb31d4");
-            var paymentSender = new Sender(u.sEmail) {FirstName = u.sFirstName, LastName = u.sLastName};
+        //    //var paysonApi = new PaysonApi("20516", "d615e80b-4ad4-4c46-a88e-7cffc66ab4b2");
+        //    var paysonApi = new PaysonApi("4", "2acab30d-fe50-426f-90d7-8c60a7eb31d4");
+        //    var paymentSender = new Sender(u.sEmail) {FirstName = u.sFirstName, LastName = u.sLastName};
 
-            var receivers = new List<Receiver>
-            {
-                //new Receiver("gymoskar@gmail.com", sum)
-                new Receiver("testagent-1@payson.se", sum)
-            };
+        //    var receivers = new List<Receiver>
+        //    {
+        //        //new Receiver("gymoskar@gmail.com", sum)
+        //        new Receiver("testagent-1@payson.se", sum)
+        //    };
 
-            var payData = new PayData("www.google.se", "www.facebook.com", "SWEprotein", paymentSender, receivers);
+        //    var payData = new PayData("www.google.se", "www.facebook.com", "SWEprotein", paymentSender, receivers);
 
-            payData.SetIpnNotificationUrl("ipn_notification_url");
-            payData.SetCurrencyCode("SEK");
-            payData.FeesPayer = FeesPayer.Sender;
+        //    payData.SetIpnNotificationUrl("ipn_notification_url");
+        //    payData.SetCurrencyCode("SEK");
+        //    payData.FeesPayer = FeesPayer.Sender;
 
-            PayResponse payResponse = paysonApi.MakePayRequest(payData);
+        //    PayResponse payResponse = paysonApi.MakePayRequest(payData);
 
-            if (payResponse.Success)
-            {
-                Response.Redirect(paysonApi.GetForwardPayUrl(payResponse.Token));
-            }
-            //För att få info om betalningen
-            //var paymentDetailsData = new PaymentDetailsData(payResponse.Token);
-            //var paymentDetailsResponse = paysonApi.MakePaymentDetailsRequest(paymentDetailsData);
+        //    if (payResponse.Success)
+        //    {
+        //        Response.Redirect(paysonApi.GetForwardPayUrl(payResponse.Token));
+        //    }
+        //    //För att få info om betalningen
+        //    //var paymentDetailsData = new PaymentDetailsData(payResponse.Token);
+        //    //var paymentDetailsResponse = paysonApi.MakePaymentDetailsRequest(paymentDetailsData);
 
-            return View();
-        }
+        //    return View();
+        //}
     }
 }
