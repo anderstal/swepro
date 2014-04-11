@@ -2,84 +2,112 @@
 @using System.Web.UI.WebControls
 @using Microsoft.Ajax.Utilities
 @using SWEprotein.Models
-@using GridMvc.Columns
-@using GridMvc.Html
+@*@using GridMvc.Columns
+@using GridMvc.Html*@
 
-@*@model IEnumerable<SWEprotein.Models.tbOrder>*@
 
-@*@model IEnumerable<SWEprotein.Models.tbProductOrder>*@
 @{
     ViewBag.Title = "Economy";
 }
 
-
 <div class="container-fluid">
     <h2>Ekonomi</h2>
-   
-    <br/>
-    <h4>Välj period nedan</h4>
-</div>
 
+    @Html.ActionLink("Tillbaka till adminsida", "Index", "Admin")
+    <br/>
+    @*    @if (ViewBag.test != null)
+{
+    foreach (tbProductOrder item in ViewBag.test)
+    {
+    <table class="table">
+        @item.tbProduct.sName
+        @item.tbProduct.iItemsSold
+    </table>
+    }
+}*@
+    @using (Html.BeginForm("Economy", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+        <h3>Sökning efter specifik produkt</h3>
+        <input type="text" name="searchString" />
+    <input type="submit" value="Search" />
+}
+
+        <div class="container-fluid">
+        
+            @if (Model != null)
+            {
+                foreach (tbProduct item in Model)
+                {
+                    <table>
+                    @Html.ActionLink(@item.sName,"ProductEconomy","Admin", new { id=item.iID },null)
+                   </table>
+                }
+            }
+        
+    </div>
+        @Html.DropDownList("ddlTopProductsAmount") 
+
+
+</div>
+<form action="Economy.cshtml" method="get"></form>
 @using (Html.BeginForm("Economy", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
+
+    <br />
 
     <div style="float: left">
         <div class="editor-field">
             <div class="container-fluid">
+                    <h4>Välj period nedan</h4>
                 <div class="row">
-                    <div class="col-md-4">Från datum
+                    <div class="col-md-4">
+                        Från datum
                         <input data-val="true" value="@ViewBag.Date" name="fromDate" type="date"/>
                     </div>
-                    <div class="col-md-4" style="float:left">Till datum
-                        <input data-val="true" value="@ViewBag.Date" name="ToDate" type="date"/> 
+                    <div class="col-md-4" style="float: left">
+                        Till datum
+                        <input data-val="true" value="@ViewBag.Date" name="ToDate" type="date"/>
                     </div>
-                    <div class="col-md-4" style="float:left">
+                    <div class="col-md-4" style="float: left">
                     </div>
-                    <br/>      
-                        <input type="submit" value="Hitta" />              
+                    <br />
+                    <input type="submit" value="Hitta" />
                 </div>
+                @ViewBag.errorMessage
             </div>
-        </div>    
-     </div>
+        </div>
+    </div>
+    <br />
 
-    <div class="container-fluid" style="float:left">
+    <div class="container-fluid" style="float: left">
         @if (ViewBag.income != null && ViewBag.totalProductsSold != null && ViewBag.totalOrders != null)
         {
-        <h3>Total inkomst:</h3>@ViewBag.income
-        <h3>Antal sålda produkter</h3>@ViewBag.totalProductsSold      
-        <h3>Antal ordrar</h3>@ViewBag.totalOrders
-        <h3>Medelvärde per order</h3>@ViewBag.average
-        <h3>Mest sålda produkt</h3>@ViewBag.mostSold
+            <h3>Total inkomst:</h3>@ViewBag.income
+            <h3>Antal sålda produkter</h3>@ViewBag.totalProductsSold      
+            <h3>Antal ordrar</h3>@ViewBag.totalOrders
+            <h3>Medelvärde per order</h3>@ViewBag.average
         }
     </div>
-    
-
 }
 
-@*@if (ViewBag.mostSold != null)
-{
-foreach (var item in ViewBag.mostSold)
-{
-    @it
-}
-}*@
+<div class="container-fluid" style="float: left">
 
-
-
-@*@if (Model != null)
+    @if (ViewBag.mostSoldProducts != null)
     {
-        foreach (tbProductOrder a in Model)
+        <h3>Mest sålda produkter</h3>
+        foreach (tbProductOrder item in ViewBag.mostSoldProducts)
         {
-            <table>
-        @a.tbProduct.sName
-  
-        @a.tbProduct.iItemsSold
-              
-                @a.tbProduct.iPrice
-            </table>
+        <table class="table">
+            @item.tbProduct.sName
+            @item.tbProduct.iItemsSold
+        </table>
         }
+    }
 
-    }*@
+    <br />
+    <br>
+</div>
+
 @*@if (Model != null)
 {
     @Html.Grid(Model).Columns(columns =>

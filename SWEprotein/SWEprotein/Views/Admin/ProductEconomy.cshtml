@@ -1,0 +1,57 @@
+﻿@using System.Data.Odbc
+@using System.Web.UI.WebControls
+@using Microsoft.Ajax.Utilities
+@using SWEprotein.Models
+
+
+@{
+    ViewBag.Title = "ProductEconomy";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid" style="float: left">
+
+    <h2>@Html.DisplayFor(model => model)</h2>
+    
+    @Html.ActionLink("Tillbaka","Economy","Admin")
+
+    @using (Html.BeginForm("ProductEconomy", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <br />
+        <div style="float: left">
+            <div class="editor-field">
+                <div class="container-fluid">
+                    <h4>Välj period nedan</h4>
+                    <div class="row">
+                        <div class="col-md-4">
+                            Från datum
+                            <input data-val="true" value="@ViewBag.Date" name="fromDate" type="date"/>
+                        </div>
+                        <div class="col-md-4" style="float: left">
+                            Till datum
+                            <input data-val="true" value="@ViewBag.Date" name="ToDate" type="date"/>
+                        </div>
+                        <div class="col-md-4" style="float: left">
+                        </div>
+                        <br />
+                        <input type="submit" value="Hitta" />
+                    </div>
+                    @ViewBag.errorMessage
+                </div>
+            </div>
+        </div>
+        <br />
+
+    }
+    <div style="float: right">
+        <img src="@ViewBag.picture"style="height: 150px"/>
+    </div>
+    
+    <div class="container-fluid">
+        <h4>Total inkomst:</h4>@ViewBag.productIncome
+        <h4>Antal sålda produkter</h4>@ViewBag.itemsSoldProduct
+        <h4>Antal ordrar</h4>@ViewBag.productOrdered
+    </div>
+</div>
+
+
